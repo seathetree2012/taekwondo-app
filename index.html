@@ -1,0 +1,2765 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>태권도 자세 코치</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" type="image/svg+xml" href="/icon.svg">
+<link rel="apple-touch-icon" href="/icon.svg">
+<meta name="theme-color" content="#d8453a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="태권도 코치">
+<meta name="mobile-web-app-capable" content="yes">
+<style>
+  :root {
+    --primary: #d8453a;
+    --primary-dark: #b8362c;
+    --bg: #fafafa;
+    --card: #fff;
+    --text: #222;
+    --muted: #888;
+    --border: #e5e5e5;
+    --soft: #f0f0f0;
+    --pill-bg: #fff0ee;
+    --error-bg: #fff0f0;
+    --error-text: #c53030;
+    --has-file-bg: #f3fdf3;
+    --base-size: 15px;
+  }
+  :root.dark {
+    --bg: #181818;
+    --card: #242424;
+    --text: #ececec;
+    --muted: #9a9a9a;
+    --border: #3a3a3a;
+    --soft: #2c2c2c;
+    --pill-bg: #3a2018;
+    --error-bg: #3a1818;
+    --error-text: #ff8b8b;
+    --has-file-bg: #1d3520;
+  }
+  :root.font-small { --base-size: 13px; }
+  :root.font-large { --base-size: 17px; }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, "Segoe UI", "Malgun Gothic", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+    font-size: var(--base-size);
+  }
+  .wrap {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 24px 16px 48px;
+    min-height: 100vh;
+  }
+  .top {
+    display: flex;
+    align-items: center;
+    margin-bottom: 24px;
+    min-height: 28px;
+  }
+  .back {
+    background: none;
+    border: none;
+    color: var(--muted);
+    font-size: 14px;
+    cursor: pointer;
+    padding: 4px 8px;
+    width: auto;
+  }
+  .back:hover { color: var(--text); }
+  h1 {
+    font-size: 22px;
+    margin: 0 0 4px;
+    text-align: center;
+  }
+  .step-title {
+    font-size: 20px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 4px;
+  }
+  .subtitle {
+    color: var(--muted);
+    font-size: 14px;
+    text-align: center;
+    margin-bottom: 32px;
+  }
+  .screen { display: none; }
+  .screen.active { display: block; }
+
+  /* 상단 헤더 (인증된 화면 공통) */
+  .app-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    padding: 8px 4px;
+    border-bottom: 1px solid var(--border);
+  }
+  .user-chip {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    color: var(--text);
+    padding: 6px 10px;
+    border-radius: 100px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .user-chip:hover { background: var(--soft); }
+  .diary-btn {
+    background: var(--pill-bg);
+    color: var(--primary);
+    border: none;
+    cursor: pointer;
+    font-size: 13px;
+    padding: 6px 12px;
+    border-radius: 100px;
+    font-weight: 600;
+  }
+  .diary-btn:hover { filter: brightness(0.95); }
+  .icon-btn {
+    background: var(--soft);
+    border: none;
+    cursor: pointer;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    font-size: 18px;
+    color: var(--text);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .icon-btn:hover { filter: brightness(0.92); }
+
+  /* 메뉴 모달 */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.4);
+    display: none;
+    align-items: flex-end;
+    justify-content: center;
+    z-index: 100;
+  }
+  .modal-overlay.active { display: flex; }
+  .modal {
+    background: var(--card);
+    border-radius: 16px 16px 0 0;
+    width: 100%;
+    max-width: 480px;
+    padding: 8px 0 24px;
+  }
+  .modal-item {
+    display: block;
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: none;
+    padding: 16px 20px;
+    font-size: 15px;
+    cursor: pointer;
+    color: var(--text);
+  }
+  .modal-item:hover { background: var(--soft); }
+  .modal-item.danger { color: var(--error-text); }
+  .modal-handle {
+    width: 40px;
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+    margin: 8px auto 12px;
+  }
+
+  /* 역삼각형 카드 레이아웃 */
+  .triangle {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 24px;
+  }
+  .tri-card {
+    background: var(--card);
+    border: 2px solid var(--border);
+    border-radius: 16px;
+    padding: 28px 12px;
+    text-align: center;
+    cursor: pointer;
+    transition: all .15s;
+    aspect-ratio: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .tri-card:hover {
+    border-color: var(--primary);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(216, 69, 58, .15);
+  }
+  .tri-card .icon { font-size: 44px; margin-bottom: 8px; }
+  .tri-card .name { font-size: 18px; font-weight: 700; }
+  .tri-card .desc { font-size: 12px; color: var(--muted); margin-top: 4px; }
+  .tri-card.bottom {
+    grid-column: 1 / 3;
+    width: 50%;
+    justify-self: center;
+    aspect-ratio: 1;
+  }
+
+  /* 연령 카드 */
+  .age-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .age-card {
+    background: var(--card);
+    border: 2px solid var(--border);
+    border-radius: 14px;
+    padding: 18px 16px;
+    cursor: pointer;
+    transition: all .15s;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .age-card:hover {
+    border-color: var(--primary);
+    transform: translateY(-1px);
+  }
+  .age-card .age-icon { font-size: 32px; }
+  .age-card .age-name { font-size: 16px; font-weight: 700; }
+  .age-card .age-range { font-size: 13px; color: var(--muted); }
+
+  /* 업로드 */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 16px;
+  }
+  .summary-pill {
+    display: inline-block;
+    background: var(--pill-bg);
+    color: var(--primary);
+    padding: 4px 10px;
+    border-radius: 100px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-right: 6px;
+  }
+  .summary-row {
+    text-align: center;
+    margin-bottom: 16px;
+  }
+  .upload-area {
+    border: 2px dashed var(--border);
+    border-radius: 12px;
+    padding: 32px 16px;
+    text-align: center;
+    cursor: pointer;
+    transition: all .15s;
+    display: block;
+  }
+  .upload-area:hover { border-color: var(--primary); }
+  .upload-area.has-file {
+    border-style: solid;
+    border-color: #4caf50;
+    background: var(--has-file-bg);
+    padding: 24px 16px;
+  }
+  .upload-area input { display: none; }
+  .upload-icon { font-size: 40px; margin-bottom: 8px; }
+  .upload-text { color: var(--muted); font-size: 14px; }
+  .upload-hint { color: var(--muted); font-size: 12px; margin-top: 4px; }
+  #preview-img, #preview-video {
+    width: 100%;
+    border-radius: 8px;
+    display: none;
+    max-height: 280px;
+    object-fit: contain;
+    background: #000;
+    margin-bottom: 8px;
+  }
+  .selected-state {
+    display: none;
+    text-align: center;
+  }
+  .selected-state.active { display: block; }
+  .selected-icon { font-size: 48px; margin-bottom: 6px; }
+  .selected-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: #4caf50;
+    word-break: break-all;
+    margin-bottom: 4px;
+  }
+  .selected-meta { font-size: 12px; color: var(--muted); }
+  .change-btn {
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 13px;
+    color: var(--primary);
+    text-decoration: underline;
+  }
+  input[type="text"], input[type="password"], input[type="tel"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font-size: 14px;
+    font-family: inherit;
+    background: var(--card);
+    color: var(--text);
+  }
+  input[type="text"]:focus, input[type="password"]:focus, input[type="tel"]:focus {
+    outline: none;
+    border-color: var(--primary);
+  }
+  label.field {
+    display: block;
+    margin-bottom: 14px;
+  }
+  label.field .field-label {
+    display: block;
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 6px;
+    font-weight: 600;
+  }
+  button.primary {
+    width: 100%;
+    padding: 14px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity .15s;
+  }
+  button.primary:hover { opacity: .9; }
+  button.primary:disabled { opacity: .5; cursor: not-allowed; }
+  button.secondary {
+    width: 100%;
+    padding: 12px;
+    background: var(--card);
+    color: var(--primary);
+    border: 1px solid var(--primary);
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+
+  /* 동의서 */
+  .consent-box {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px;
+    max-height: 360px;
+    overflow-y: auto;
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--text);
+    margin-bottom: 16px;
+  }
+  .consent-box h3 {
+    margin: 16px 0 4px;
+    font-size: 14px;
+    color: var(--primary);
+  }
+  .consent-box h3:first-child { margin-top: 0; }
+  .consent-box .warn {
+    background: var(--pill-bg);
+    padding: 10px;
+    border-radius: 8px;
+    margin: 10px 0;
+    font-weight: 600;
+  }
+  .checkbox-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 4px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .checkbox-row input { margin-top: 3px; flex-shrink: 0; }
+  .checkbox-row span { font-size: 14px; }
+
+  /* 사용자 카드 (로그인 화면) */
+  .user-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  .user-card-btn {
+    background: var(--card);
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    color: var(--text);
+  }
+  .user-card-btn:hover { border-color: var(--primary); }
+  .user-card-btn .avatar {
+    width: 40px; height: 40px;
+    background: var(--primary);
+    color: white;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 18px;
+  }
+  .user-card-btn .user-info-name { font-weight: 600; }
+  .user-card-btn .user-info-meta { font-size: 12px; color: var(--muted); }
+
+  /* 일기 (history) */
+  .diary-empty {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--muted);
+  }
+  .diary-empty-icon { font-size: 48px; margin-bottom: 12px; }
+  .diary-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .diary-item {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    display: flex;
+    gap: 0;
+  }
+  .diary-item:hover { border-color: var(--primary); }
+  .diary-thumb {
+    width: 96px; height: 96px;
+    background: var(--soft);
+    flex-shrink: 0;
+    background-size: cover;
+    background-position: center;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 28px; color: var(--muted);
+  }
+  .diary-meta {
+    padding: 12px 14px;
+    flex: 1;
+    min-width: 0;
+  }
+  .diary-meta .d-cat {
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .diary-meta .d-date {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+  .diary-meta .d-preview {
+    font-size: 12px;
+    color: var(--muted);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* 비교 모드 */
+  .diary-actions {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+  .diary-actions button {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid var(--border);
+    background: var(--card);
+    border-radius: 10px;
+    font-size: 13px;
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .diary-actions button.compare-on {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+  }
+  .diary-item { position: relative; }
+  .diary-item.selected {
+    border-color: var(--primary) !important;
+    border-width: 2px;
+    background: var(--pill-bg);
+  }
+  .select-badge {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: var(--primary);
+    color: white;
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 700;
+  }
+  .compare-floating {
+    position: sticky;
+    bottom: 16px;
+    margin-top: 16px;
+    z-index: 10;
+  }
+
+  /* 비교 화면 */
+  .compare-cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  .compare-col {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+  .compare-col h4 {
+    margin: 0 0 8px;
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .compare-col .col-thumb {
+    width: 100%;
+    aspect-ratio: 1;
+    background: var(--soft);
+    background-size: cover;
+    background-position: center;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 32px; color: var(--muted);
+  }
+  .compare-col .col-date { font-weight: 600; margin-bottom: 6px; font-size: 12px; }
+  .compare-col .col-feedback {
+    white-space: pre-wrap;
+    line-height: 1.5;
+    font-size: 11px;
+    color: var(--text);
+    word-wrap: break-word;
+  }
+  .summary-card {
+    background: var(--pill-bg);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 18px;
+    margin-bottom: 16px;
+  }
+  .summary-card h3 {
+    margin: 0 0 10px;
+    color: var(--primary);
+    font-size: 16px;
+  }
+  .summary-text {
+    white-space: pre-wrap;
+    font-size: 14px;
+    line-height: 1.75;
+  }
+  .summary-text strong { color: var(--primary); }
+
+  /* 디테일 */
+  .detail-thumb {
+    width: 100%;
+    aspect-ratio: 1;
+    background: var(--soft);
+    background-size: cover;
+    background-position: center;
+    border-radius: 12px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 64px;
+    color: var(--muted);
+  }
+
+  .pin-input {
+    letter-spacing: 12px;
+    text-align: center;
+    font-size: 22px !important;
+  }
+
+  .loading {
+    text-align: center;
+    padding: 24px;
+    color: var(--muted);
+    font-size: 14px;
+  }
+  .spinner {
+    display: inline-block;
+    width: 20px; height: 20px;
+    border: 2px solid var(--border);
+    border-top-color: var(--primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    vertical-align: middle;
+    margin-right: 8px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .feedback {
+    white-space: pre-wrap;
+    line-height: 1.7;
+    font-size: 15px;
+  }
+  .feedback strong { color: var(--primary); }
+  .error {
+    background: var(--error-bg);
+    color: var(--error-text);
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 14px;
+  }
+  .hint {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 6px;
+  }
+  .hidden { display: none !important; }
+
+  /* Annotated image (analysis result) */
+  .annotated-img-wrap {
+    position: relative;
+    width: 100%;
+    margin-bottom: 12px;
+    border-radius: 12px;
+    background: #000;
+    line-height: 0;
+  }
+  .annotated-img-wrap img {
+    width: 100%;
+    display: block;
+    max-height: 60vh;
+    object-fit: contain;
+    border-radius: 12px;
+  }
+  .annotation-marker {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    pointer-events: none;
+  }
+  .annotation-dot {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 3px solid #fff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    color: #fff;
+    font-weight: 700;
+    line-height: 1;
+  }
+  .annotation-marker.good .annotation-dot { background: #4caf50; }
+  .annotation-marker.bad  .annotation-dot { background: #ef5350; }
+  .annotation-label {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: normal;
+    word-break: keep-all;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.88);
+    color: #fff;
+    font-size: 13px;
+    line-height: 1.3;
+    padding: 5px 9px;
+    border-radius: 6px;
+    width: max-content;
+    max-width: 160px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.4);
+  }
+  .annotation-marker.good .annotation-label { background: rgba(46, 125, 50, 0.92); }
+  .annotation-marker.bad  .annotation-label { background: rgba(198, 40, 40, 0.92); }
+
+  /* Annotated video (analysis result) */
+  .annotated-video-wrap {
+    position: relative;
+    width: 100%;
+    margin-bottom: 12px;
+    border-radius: 12px;
+    background: #000;
+    line-height: 0;
+    overflow: hidden;
+  }
+  .annotated-video-wrap video {
+    width: 100%;
+    display: block;
+    max-height: 60vh;
+    object-fit: contain;
+    border-radius: 12px;
+  }
+  .video-markers {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 2;
+  }
+  .moments-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+  .moments-title {
+    font-size: 13px;
+    color: var(--muted);
+    font-weight: 600;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+  }
+  .moment-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 10px 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: border-color .15s;
+  }
+  .moment-card:hover { border-color: var(--primary); }
+  .moment-card.active { border-color: var(--primary); background: var(--pill-bg); }
+  .moment-time {
+    font-weight: 700;
+    color: var(--primary);
+    font-size: 13px;
+    flex-shrink: 0;
+    font-family: -apple-system, "SF Mono", "Consolas", monospace;
+    min-width: 42px;
+  }
+  .moment-desc {
+    font-size: 14px;
+    flex: 1;
+    color: var(--text);
+  }
+
+  /* Settings */
+  .settings-section {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin-bottom: 14px;
+  }
+  .settings-section h3 {
+    margin: 0 0 10px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+  }
+  .settings-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+    gap: 12px;
+  }
+  .settings-row:last-child { border-bottom: none; }
+  .settings-row .row-label { color: var(--text); }
+  .settings-row .row-sub { display: block; font-size: 12px; color: var(--muted); margin-top: 2px; }
+  .settings-row select {
+    background: var(--card);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 6px 10px;
+    font-size: 13px;
+    font-family: inherit;
+  }
+  .settings-row-btn {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+    background: none;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    color: var(--text);
+    font-size: 14px;
+    text-align: left;
+    cursor: pointer;
+    font-family: inherit;
+  }
+  .settings-row-btn:last-child { border-bottom: none; }
+  .settings-row-btn:hover { color: var(--primary); }
+  .settings-row-btn .arrow { color: var(--muted); }
+
+  .toggle-switch {
+    position: relative;
+    width: 44px;
+    height: 24px;
+    flex-shrink: 0;
+  }
+  .toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  .toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    inset: 0;
+    background: var(--border);
+    border-radius: 24px;
+    transition: 0.2s;
+  }
+  .toggle-slider::before {
+    content: "";
+    position: absolute;
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    top: 3px;
+    background: white;
+    border-radius: 50%;
+    transition: 0.2s;
+  }
+  .toggle-switch input:checked + .toggle-slider { background: var(--primary); }
+  .toggle-switch input:checked + .toggle-slider::before { transform: translateX(20px); }
+
+  .header-actions {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
+
+  /* 품새 기준 리스트 */
+  .pm-row {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    background: none;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    color: var(--text);
+    font-size: 14px;
+    text-align: left;
+    cursor: pointer;
+    font-family: inherit;
+    gap: 10px;
+  }
+  .pm-row:last-child { border-bottom: none; }
+  .pm-row:hover { color: var(--primary); }
+  .pm-row .pm-info { display: flex; flex-direction: column; gap: 2px; min-width: 0; flex: 1; }
+  .pm-row .pm-name { font-weight: 600; }
+  .pm-row .pm-meta { font-size: 11px; color: var(--muted); }
+  .pm-row .pm-status {
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 100px;
+    flex-shrink: 0;
+  }
+  .pm-row .pm-status.empty { background: var(--soft); color: var(--muted); }
+  .pm-row .pm-status.set { background: #e6f5e9; color: #2e7d32; }
+  :root.dark .pm-row .pm-status.set { background: #1d3a22; color: #88d18d; }
+
+  /* 등록 모달 */
+  .pm-modal .modal {
+    max-height: 85vh;
+    overflow-y: auto;
+    padding: 8px 0 16px;
+  }
+  .pm-modal-body { padding: 0 18px; }
+  .pm-modal-body h3 { margin: 0 0 16px; font-size: 18px; }
+  .pm-modal-body input[type="text"] { background: var(--card); }
+  .pm-or {
+    text-align: center;
+    margin: 10px 0;
+    color: var(--muted);
+    font-size: 13px;
+  }
+  .pm-seq-list {
+    max-height: 40vh;
+    overflow-y: auto;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 6px 0;
+    background: var(--bg);
+  }
+  .pm-seq-item {
+    display: grid;
+    grid-template-columns: 32px 1fr auto;
+    gap: 8px;
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+  }
+  .pm-seq-item:last-child { border-bottom: none; }
+  .pm-seq-n {
+    font-weight: 700;
+    color: var(--primary);
+    font-family: -apple-system, "Consolas", monospace;
+  }
+  .pm-seq-detail { line-height: 1.5; min-width: 0; }
+  .pm-seq-detail .stance { color: var(--muted); font-size: 12px; }
+  .pm-seq-time {
+    font-size: 11px;
+    color: var(--muted);
+    font-family: monospace;
+  }
+  .pm-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 14px;
+  }
+  .pm-actions button { flex: 1; }
+  .annotation-legend {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 10px;
+    font-size: 13px;
+    color: var(--muted);
+    justify-content: center;
+  }
+  .annotation-legend .legend-dot {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-right: 5px;
+    vertical-align: middle;
+    border: 2px solid #fff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ===== Screen 0: 동의서 ===== -->
+  <div id="screen-consent" class="screen">
+    <h1>🥋 태권도 자세 코치</h1>
+    <div class="subtitle">시작하기 전에 한 번만 확인해주세요</div>
+
+    <div class="consent-box" id="consentScroll">
+      <p style="margin-top:0; color:#666; font-size:0.92em;">
+        본 약관은 「태권도 자세 코치」(이하 "서비스") 이용에 관한 사항을 정합니다.
+        끝까지 읽어주신 후 아래 항목에 동의해주세요. 이해가 어려운 부분이 있으면
+        보호자·지도자와 함께 확인해주세요.
+      </p>
+
+      <h3>1. 서비스 소개</h3>
+      <p>본 서비스는 사용자가 업로드한 태권도 동작 영상·사진을 AI(인공지능)가 분석하여 자세에 대한 텍스트 피드백을 제공하는 도구입니다. 본 서비스는 다음 항목을 <strong>제공하지 않습니다</strong>:</p>
+      <ul>
+        <li>점수·등급·순위·합격 여부</li>
+        <li>다른 사용자와의 직접 비교</li>
+        <li>심사·시험·승급 결과 보장</li>
+        <li>의료·건강·재활 조언</li>
+      </ul>
+
+      <h3>2. 수집하는 정보</h3>
+      <ul>
+        <li><strong>이름</strong> — 본인이 직접 입력 (실명 아니어도 됨, 별명 가능)</li>
+        <li><strong>PIN 4자리</strong> — 본인 기록 잠금용</li>
+        <li><strong>업로드한 영상·사진</strong> — 분석 대상 자세</li>
+        <li><strong>분석 결과</strong> — AI가 생성한 텍스트 피드백</li>
+        <li><strong>썸네일</strong> — 일기·기록 화면용 작은 이미지</li>
+      </ul>
+      <p>주민등록번호·전화번호·이메일·주소는 수집하지 않습니다.</p>
+
+      <h3>3. 외부 전송 (중요)</h3>
+      <div class="warn">
+        분석을 위해 업로드한 영상·사진은 <strong>Google LLC가 운영하는 Gemini AI 서버</strong>로 전송됩니다.
+        해당 서버는 미국 등 해외에 위치할 수 있습니다.
+        Google 정책상 업로드된 파일은 약 48시간 후 자동 삭제되며,
+        Google은 이 데이터를 모델 학습 등 다른 용도로 사용하지 않는다고 명시하고 있습니다.
+      </div>
+      <p style="font-size:0.88em; color:#666;">참고: Google Gemini API 데이터 사용 정책은 Google 측 정책 변경에 따라 달라질 수 있으며, 본 서비스는 이를 보증하지 않습니다.</p>
+
+      <h3>4. 데이터 보관 위치</h3>
+      <p>이름·PIN·분석 결과·썸네일은 <strong>본인 휴대폰 내 브라우저 저장소(localStorage)</strong>에만 저장됩니다. 본 서비스 운영자는 별도 서버에 사용자 정보를 저장하지 않으며, 이름·PIN·결과를 열람할 수 없습니다.</p>
+      <p>휴대폰을 변경하거나 브라우저 데이터를 삭제하면 모든 기록이 사라집니다. 백업 기능은 제공되지 않습니다.</p>
+
+      <h3>5. AI 분석의 한계</h3>
+      <p>본 서비스의 AI는 영상·사진 한 장면만으로 자세를 평가하므로 다음과 같은 한계가 있습니다:</p>
+      <ul>
+        <li>촬영 각도·조명·해상도에 따라 결과가 달라질 수 있음</li>
+        <li>실제 지도자의 평가와 다를 수 있음</li>
+        <li>같은 동작을 두 번 분석해도 결과가 미세하게 다를 수 있음</li>
+        <li>AI가 명백한 실수를 할 수 있음</li>
+      </ul>
+      <p><strong>AI 피드백은 참고용일 뿐이며, 실제 지도자·코치의 가르침을 대체할 수 없습니다.</strong></p>
+
+      <h3>6. 안전·부상 면책</h3>
+      <div class="warn">
+        본 서비스는 의료·건강·운동처방 서비스가 아닙니다. AI 피드백을 따라 동작을 시도하다 발생한 부상·통증·사고에 대해 본 서비스 운영자는 책임을 지지 않습니다.
+        통증이 있거나 컨디션이 좋지 않으면 무리하지 마시고, 새로운 동작은 반드시 자격 있는 지도자의 지도 아래 연습해주세요.
+      </div>
+
+      <h3>7. 만 14세 미만 사용자</h3>
+      <p>한국 개인정보보호법상 만 14세 미만 아동의 개인정보 처리에는 법정대리인(보호자)의 동의가 필요합니다. 만 14세 미만인 경우, 회원가입 시 다음을 함께 진행해주세요:</p>
+      <ul>
+        <li>보호자가 본 동의서를 함께 읽기</li>
+        <li>가입 화면에서 보호자 이름 입력</li>
+        <li>보호자가 항상 옆에서 사용을 지켜보기</li>
+      </ul>
+
+      <h3>8. 광고·제3자 공유 없음</h3>
+      <p>본 서비스는 광고를 표시하지 않으며, 사용자 데이터를 수익화하지 않습니다. Google Gemini API 호출에 필요한 영상·사진 전송 외에는 어떤 제3자에게도 데이터를 제공하지 않습니다.</p>
+
+      <h3>9. 사용자 권리</h3>
+      <ul>
+        <li>언제든 메뉴에서 본인 계정·기록 삭제 가능</li>
+        <li>브라우저 설정에서 사이트 데이터 삭제 가능</li>
+        <li>특정 분석 결과만 골라 삭제 가능</li>
+        <li>서비스 이용을 언제든 중단 가능</li>
+      </ul>
+
+      <h3>10. 약관 변경</h3>
+      <p>본 약관은 서비스 개선이나 법령 변경에 따라 수정될 수 있습니다. 중요한 변경이 있을 경우 다음 접속 시 새 동의 절차를 다시 안내합니다.</p>
+
+      <h3>11. 문의</h3>
+      <p>서비스 문의나 개인정보 관련 요청은 가입 시 안내된 연락처로 보내주세요. (개인 프로젝트 단계로, 답변까지 시간이 걸릴 수 있습니다.)</p>
+
+      <p style="margin-top:18px; padding:10px; background:#f7f7f7; border-radius:8px; font-size:0.9em; color:#444;">
+        이 약관은 대한민국 법률을 따르며, 분쟁 발생 시 본 서비스 운영자의 주소지 관할 법원을 1심 법원으로 합니다.
+      </p>
+    </div>
+
+    <label class="checkbox-row">
+      <input type="checkbox" id="consentCheck1">
+      <span>위 약관 1~11항을 모두 읽고 동의합니다 <strong>(필수)</strong></span>
+    </label>
+    <label class="checkbox-row">
+      <input type="checkbox" id="consentCheck2">
+      <span>AI 분석은 참고용이며, 부상·안전은 본인 책임임을 이해합니다 <strong>(필수)</strong></span>
+    </label>
+    <label class="checkbox-row">
+      <input type="checkbox" id="consentCheck3">
+      <span>만 14세 이상이거나, 보호자와 함께 보고 있습니다 <strong>(필수)</strong></span>
+    </label>
+
+    <button class="primary" id="consentBtn" disabled>동의하고 시작하기</button>
+  </div>
+
+  <!-- ===== Screen: 회원가입 ===== -->
+  <div id="screen-signup" class="screen">
+    <div class="top">
+      <button class="back" id="signupBack" style="visibility:hidden">← 뒤로</button>
+    </div>
+    <div class="step-title">처음 만나서 반가워요</div>
+    <div class="subtitle">이름이랑 PIN 4자리만 정해주세요</div>
+
+    <div id="signupError" class="error hidden" style="margin-bottom:12px;"></div>
+
+    <label class="field">
+      <span class="field-label">이름</span>
+      <input type="text" id="signupName" placeholder="예: 홍길동" maxlength="20">
+    </label>
+
+    <label class="field">
+      <span class="field-label">PIN (숫자 4자리)</span>
+      <input type="tel" inputmode="numeric" pattern="[0-9]*" maxlength="4" id="signupPin" placeholder="••••" class="pin-input">
+      <div class="hint">로그인할 때 쓰는 잠금. 까먹지 않게.</div>
+    </label>
+
+    <label class="checkbox-row">
+      <input type="checkbox" id="signupUnder14">
+      <span>만 14세 미만이에요 (보호자 정보 입력)</span>
+    </label>
+
+    <label class="field hidden" id="guardianField">
+      <span class="field-label">보호자 이름</span>
+      <input type="text" id="signupGuardian" placeholder="예: 어머니 김○○" maxlength="20">
+      <div class="hint">보호자가 동의서를 함께 확인했음을 표시.</div>
+    </label>
+
+    <button class="primary" id="signupBtn">가입하고 시작하기</button>
+  </div>
+
+  <!-- ===== Screen: 로그인 ===== -->
+  <div id="screen-login" class="screen">
+    <h1>🥋 태권도 자세 코치</h1>
+    <div class="subtitle">누구로 들어갈래요?</div>
+
+    <div id="loginError" class="error hidden" style="margin-bottom:12px;"></div>
+
+    <div class="user-list" id="userList"></div>
+
+    <button class="secondary" id="addUserBtn">＋ 새 사람 추가</button>
+  </div>
+
+  <!-- ===== Screen: PIN 입력 (로그인 2단계) ===== -->
+  <div id="screen-pin" class="screen">
+    <div class="top">
+      <button class="back" id="pinBack">← 뒤로</button>
+    </div>
+    <div class="step-title" id="pinTitle">PIN 입력</div>
+    <div class="subtitle">4자리 숫자</div>
+
+    <div id="pinError" class="error hidden" style="margin-bottom:12px;"></div>
+
+    <label class="field">
+      <input type="tel" inputmode="numeric" pattern="[0-9]*" maxlength="4" id="pinInput" placeholder="••••" class="pin-input">
+    </label>
+
+    <button class="primary" id="pinSubmitBtn">들어가기</button>
+  </div>
+
+  <!-- ===== Screen 1: 종류 선택 (메인) ===== -->
+  <div id="screen1" class="screen">
+    <div class="app-header">
+      <button class="user-chip" id="userChip1">👤 <span class="userName"></span> ▾</button>
+      <div class="header-actions">
+        <button class="diary-btn" onclick="openDiary()">📔 성장 일기</button>
+        <button class="icon-btn" onclick="openSettings()" aria-label="설정">⚙️</button>
+      </div>
+    </div>
+    <h1>🥋 태권도 자세 코치</h1>
+    <div class="subtitle">먼저 무엇을 분석할지 골라줘</div>
+
+    <div class="triangle">
+      <div class="tri-card" data-cat="품새">
+        <div class="icon">🥋</div>
+        <div class="name">품새</div>
+        <div class="desc">동작 흐름</div>
+      </div>
+      <div class="tri-card" data-cat="발차기">
+        <div class="icon">🦵</div>
+        <div class="name">발차기</div>
+        <div class="desc">앞·옆·돌려·뒤·내려</div>
+      </div>
+      <div class="tri-card bottom" data-cat="겨루기">
+        <div class="icon">🤺</div>
+        <div class="name">겨루기</div>
+        <div class="desc">실전</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Screen 2: 연령 선택 ===== -->
+  <div id="screen2" class="screen">
+    <div class="top">
+      <button class="back" onclick="goTo(1)">← 뒤로</button>
+    </div>
+    <div class="step-title">연령대를 골라줘</div>
+    <div class="subtitle">피드백 톤이 달라져요</div>
+
+    <div class="age-list">
+      <div class="age-card" data-age="유아초등저">
+        <div class="age-icon">🌱</div>
+        <div>
+          <div class="age-name">유아·초등 저학년</div>
+          <div class="age-range">5~9세</div>
+        </div>
+      </div>
+      <div class="age-card" data-age="초등중등">
+        <div class="age-icon">🌳</div>
+        <div>
+          <div class="age-name">초등 고학년·중학생</div>
+          <div class="age-range">10~14세</div>
+        </div>
+      </div>
+      <div class="age-card" data-age="고등성인">
+        <div class="age-icon">🏔️</div>
+        <div>
+          <div class="age-name">고등·성인</div>
+          <div class="age-range">15세 이상</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Screen 3: 업로드 ===== -->
+  <div id="screen3" class="screen">
+    <div class="top">
+      <button class="back" onclick="backFromUpload()">← 뒤로</button>
+    </div>
+    <div class="step-title">영상 또는 사진 올리기</div>
+    <div class="summary-row">
+      <span class="summary-pill" id="pillCategory"></span>
+      <span class="summary-pill" id="pillAge"></span>
+    </div>
+
+    <div id="screen3Error" class="card error hidden"></div>
+
+    <div class="card">
+      <label class="upload-area" id="uploadArea">
+        <input type="file" id="fileInput" accept="image/*,video/*">
+        <div id="uploadEmpty">
+          <div class="upload-icon">📷🎬</div>
+          <div class="upload-text">사진/영상 선택</div>
+          <div class="upload-hint">최대 200MB · 품새는 4분까지 OK</div>
+        </div>
+        <img id="preview-img" alt="미리보기">
+        <video id="preview-video" controls playsinline muted></video>
+        <div id="selectedState" class="selected-state">
+          <div class="selected-icon">✅</div>
+          <div class="selected-name" id="selectedName"></div>
+          <div class="selected-meta" id="selectedMeta"></div>
+          <span class="change-btn">다른 파일로 바꾸기</span>
+        </div>
+      </label>
+    </div>
+
+    <div id="ytUrlSection" class="card hidden" style="border:1px dashed var(--primary);">
+      <div style="font-size:13px; color:var(--muted); margin-bottom:8px;">🛠 개발자 모드 — YouTube URL 분석</div>
+      <input type="text" id="ytUrlInput" placeholder="https://www.youtube.com/watch?v=...">
+      <div style="font-size:12px; color:var(--muted); margin-top:6px;">파일과 URL 둘 다 있으면 파일이 우선이에요</div>
+    </div>
+
+    <button class="primary" id="analyzeBtn" disabled>분석하기</button>
+  </div>
+
+  <!-- ===== Screen 4: 결과 ===== -->
+  <div id="screen4" class="screen">
+    <div class="top">
+      <button class="back" onclick="restart()">← 처음으로</button>
+    </div>
+    <div class="step-title">분석 결과</div>
+    <div class="summary-row">
+      <span class="summary-pill" id="pillCategory2"></span>
+      <span class="summary-pill" id="pillAge2"></span>
+    </div>
+
+    <div id="loading" class="loading hidden">
+      <span class="spinner"></span><span id="loadingText">AI가 자세 보는 중...</span>
+    </div>
+
+    <div id="annotationLegend" class="annotation-legend hidden">
+      <span><span class="legend-dot" style="background:#4caf50"></span>잘한 부분</span>
+      <span><span class="legend-dot" style="background:#ef5350"></span>개선할 부분</span>
+    </div>
+    <div id="annotatedWrap" class="annotated-img-wrap hidden">
+      <img id="annotated-img" alt="분석한 사진">
+    </div>
+    <div id="annotatedVideoWrap" class="annotated-video-wrap hidden">
+      <video id="annotated-video" controls playsinline></video>
+      <div id="videoMarkers" class="video-markers"></div>
+    </div>
+    <div id="momentsList" class="moments-list hidden"></div>
+
+    <div id="result" class="card hidden">
+      <div id="feedback" class="feedback"></div>
+      <div id="savedBadge" class="hint hidden" style="margin-top:12px;">💾 성장 일기에 저장됐어요</div>
+    </div>
+
+    <div id="error" class="card error hidden">
+      <span id="errorMsg"></span>
+      <button class="secondary" id="retryBtn" style="margin-top:10px; display:none;">🔁 다시 시도</button>
+    </div>
+  </div>
+
+  <!-- ===== Screen: 성장 일기 ===== -->
+  <div id="screen-diary" class="screen">
+    <div class="app-header">
+      <button class="back" onclick="goToMain()">← 메인으로</button>
+      <span style="font-weight:700;">📔 <span class="userName"></span>의 일기</span>
+      <span style="width:50px;"></span>
+    </div>
+
+    <div class="diary-actions" id="diaryActions">
+      <button id="compareToggle">📊 비교 모드</button>
+    </div>
+    <div id="compareHint" class="hint hidden" style="margin-bottom:8px;">
+      💡 같은 카테고리 항목 두 개를 골라주세요 (시간순으로 자동 정렬돼요)
+    </div>
+
+    <div id="diaryEmpty" class="diary-empty hidden">
+      <div class="diary-empty-icon">🌱</div>
+      <div>아직 분석 기록이 없어요</div>
+      <div class="hint">영상이나 사진을 올려서 첫 발자국을 남겨보세요</div>
+    </div>
+
+    <div class="diary-list" id="diaryList"></div>
+
+    <div class="compare-floating hidden" id="compareGoBox">
+      <button class="primary" id="compareGoBtn">🌱 비교하기</button>
+    </div>
+  </div>
+
+  <!-- ===== Screen: 비교 ===== -->
+  <div id="screen-compare" class="screen">
+    <div class="top">
+      <button class="back" onclick="openDiary()">← 일기로</button>
+    </div>
+    <div class="step-title">📊 성장 비교</div>
+    <div class="summary-row">
+      <span class="summary-pill" id="comparePill"></span>
+    </div>
+
+    <div class="compare-cols">
+      <div class="compare-col" id="compareLeft"></div>
+      <div class="compare-col" id="compareRight"></div>
+    </div>
+
+    <div class="summary-card">
+      <h3>🌱 AI 성장 요약</h3>
+      <div id="compareSummary" class="summary-text"></div>
+    </div>
+  </div>
+
+  <!-- ===== Screen: 일기 상세 ===== -->
+  <div id="screen-detail" class="screen">
+    <div class="top">
+      <button class="back" onclick="openDiary()">← 일기로</button>
+    </div>
+    <div id="detailContent"></div>
+    <button class="secondary" id="deleteItemBtn">🗑 이 기록 삭제</button>
+  </div>
+
+  <!-- ===== Screen: 설정 ===== -->
+  <div id="screen-settings" class="screen">
+    <div class="top">
+      <button class="back" onclick="goToMain()">← 메인으로</button>
+    </div>
+    <div class="step-title">⚙️ 설정</div>
+
+    <div class="settings-section">
+      <h3>👤 프로필</h3>
+      <button class="settings-row-btn" onclick="openUserMenuFromSettings()">
+        <span><span class="userName"></span> 계정 관리</span>
+        <span class="arrow">›</span>
+      </button>
+    </div>
+
+    <div class="settings-section">
+      <h3>🎨 화면</h3>
+      <div class="settings-row">
+        <span class="row-label">다크 모드</span>
+        <label class="toggle-switch">
+          <input type="checkbox" id="settingDark">
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+      <div class="settings-row">
+        <span class="row-label">글자 크기</span>
+        <select id="settingFontSize">
+          <option value="small">작게</option>
+          <option value="normal">보통</option>
+          <option value="large">크게</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="settings-section">
+      <h3>💬 피드백</h3>
+      <div class="settings-row">
+        <div>
+          <span class="row-label" id="modeLabel">모드</span>
+          <span class="row-sub">전문가 = 진짜 코치 톤 / 쉽게 = 어린이도 이해</span>
+        </div>
+        <select id="settingFeedbackMode">
+          <option value="pro">전문가 (기본)</option>
+          <option value="easy">쉽게 풀어 쓰기</option>
+        </select>
+      </div>
+      <div class="settings-row hidden" id="devStatusRow">
+        <span class="row-label">🛠 개발자 모드</span>
+        <span style="color:var(--primary);font-weight:600;font-size:13px;">ON</span>
+      </div>
+    </div>
+
+    <div class="settings-section hidden" id="poomsaeRefSection">
+      <h3>🥋 도장 기준 덮어쓰기 (🛠 개발자)</h3>
+      <div style="font-size:12px; color:var(--muted); margin-bottom:10px;">기본 표준은 이미 자동 적용돼요. 우리 도장만 다르게 가르치는 품새가 있으면, 관장님 시범으로 덮어쓰면 됩니다.</div>
+      <div id="poomsaeRefList"></div>
+    </div>
+
+    <div class="settings-section">
+      <h3>📦 데이터</h3>
+      <button class="settings-row-btn" onclick="exportData()">
+        <span>📤 일기 백업 (JSON 내보내기)</span>
+        <span class="arrow">›</span>
+      </button>
+      <button class="settings-row-btn" onclick="importDataPrompt()">
+        <span>📥 백업 불러오기</span>
+        <span class="arrow">›</span>
+      </button>
+    </div>
+
+    <div class="settings-section">
+      <h3>ℹ️ 앱 정보</h3>
+      <div class="settings-row">
+        <span class="row-label">버전</span>
+        <span style="color:var(--muted);">2.0</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ===== 사용자 메뉴 모달 ===== -->
+<div class="modal-overlay" id="userMenu">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <button class="modal-item" id="menuSwitchUser">🔄 다른 사람으로 전환</button>
+    <button class="modal-item" id="menuAddUser">＋ 새 사람 추가</button>
+    <button class="modal-item" id="menuLogout">🚪 로그아웃</button>
+    <button class="modal-item danger" id="menuDeleteAccount">🗑 내 계정·데이터 삭제</button>
+    <button class="modal-item" id="menuClose" style="text-align:center; color:var(--muted);">닫기</button>
+  </div>
+</div>
+
+<!-- ===== 품새 기준 등록 모달 ===== -->
+<div class="modal-overlay pm-modal" id="poomsaeRegModal">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="pm-modal-body">
+      <h3 id="pmRegTitle">기준 등록</h3>
+
+      <div id="pmStep1">
+        <label class="upload-area" style="margin-bottom: 10px; padding: 18px 12px;">
+          <input type="file" id="pmRegFile" accept="video/*">
+          <div class="upload-icon">🎬</div>
+          <div class="upload-text">시범 영상 선택</div>
+          <div class="upload-hint">최대 200MB</div>
+        </label>
+        <div class="pm-or">또는</div>
+        <input type="text" id="pmRegYtUrl" placeholder="YouTube URL 붙여넣기">
+        <button class="primary" id="pmExtractBtn" style="margin-top: 14px;" disabled>추출 시작</button>
+      </div>
+
+      <div id="pmStep2" class="hidden">
+        <div class="loading">
+          <span class="spinner"></span><span id="pmExtractStatus">AI가 동작 추출 중... (30초~3분)</span>
+        </div>
+      </div>
+
+      <div id="pmStep3" class="hidden">
+        <div id="pmResultSummary" style="margin-bottom: 12px; font-size: 13px; color: var(--muted);"></div>
+        <div id="pmSequenceList" class="pm-seq-list"></div>
+        <div class="pm-actions">
+          <button class="primary" id="pmSaveBtn">✅ 저장</button>
+          <button class="secondary" id="pmRetryBtn">🔁 다시</button>
+        </div>
+      </div>
+
+      <div id="pmStep4" class="hidden">
+        <div class="error" id="pmErrorBox"></div>
+        <div class="pm-actions">
+          <button class="secondary" id="pmRetryFromErrorBtn">🔁 다시 시도</button>
+        </div>
+      </div>
+
+      <button class="modal-item" id="pmRegClose" style="text-align: center; color: var(--muted); margin-top: 12px;">닫기</button>
+    </div>
+  </div>
+</div>
+
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("/sw.js").catch(() => {});
+  });
+}
+
+// ===== Storage =====
+const Store = {
+  getConsent: () => { try { return JSON.parse(localStorage.getItem('tkd_consent') || 'null'); } catch { return null; } },
+  setConsent: () => localStorage.setItem('tkd_consent', JSON.stringify({ agreedAt: new Date().toISOString() })),
+
+  getUsers: () => { try { return JSON.parse(localStorage.getItem('tkd_users') || '[]'); } catch { return []; } },
+  setUsers: (list) => localStorage.setItem('tkd_users', JSON.stringify(list)),
+  addUser: ({ name, pin, isUnder14, guardianName }) => {
+    const list = Store.getUsers();
+    const id = 'u_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6);
+    const user = { id, name, pin, isUnder14: !!isUnder14, guardianName: guardianName || '', createdAt: new Date().toISOString() };
+    list.push(user);
+    Store.setUsers(list);
+    return user;
+  },
+  getUserById: (id) => Store.getUsers().find(u => u.id === id),
+  deleteUser: (id) => {
+    Store.setUsers(Store.getUsers().filter(u => u.id !== id));
+    localStorage.removeItem('tkd_history_' + id);
+  },
+
+  getCurrentUserId: () => localStorage.getItem('tkd_currentUser'),
+  setCurrentUserId: (id) => localStorage.setItem('tkd_currentUser', id),
+  clearCurrentUser: () => localStorage.removeItem('tkd_currentUser'),
+  getCurrentUser: () => {
+    const id = Store.getCurrentUserId();
+    return id ? Store.getUserById(id) : null;
+  },
+
+  getHistory: (userId) => { try { return JSON.parse(localStorage.getItem('tkd_history_' + userId) || '[]'); } catch { return []; } },
+  addHistoryItem: (userId, item) => {
+    const list = Store.getHistory(userId);
+    list.unshift({ id: 'h_' + Date.now(), date: new Date().toISOString(), ...item });
+    if (list.length > 50) list.length = 50;
+    try {
+      localStorage.setItem('tkd_history_' + userId, JSON.stringify(list));
+      return true;
+    } catch (e) {
+      // QuotaExceeded — 썸네일 빼고 재시도
+      list.forEach(it => delete it.thumbnail);
+      try {
+        localStorage.setItem('tkd_history_' + userId, JSON.stringify(list));
+        return true;
+      } catch (_) { return false; }
+    }
+  },
+  getHistoryItem: (userId, itemId) => Store.getHistory(userId).find(h => h.id === itemId),
+  deleteHistoryItem: (userId, itemId) => {
+    const list = Store.getHistory(userId).filter(h => h.id !== itemId);
+    localStorage.setItem('tkd_history_' + userId, JSON.stringify(list));
+  },
+};
+
+// ===== 화면 전환 =====
+const SCREENS = ['consent','signup','login','pin','main','age','upload','result','diary','detail','settings'];
+const SCREEN_IDS = {
+  consent: 'screen-consent',
+  signup: 'screen-signup',
+  login: 'screen-login',
+  pin: 'screen-pin',
+  main: 'screen1',
+  age: 'screen2',
+  upload: 'screen3',
+  result: 'screen4',
+  diary: 'screen-diary',
+  detail: 'screen-detail',
+  compare: 'screen-compare',
+  settings: 'screen-settings',
+};
+
+// ===== 설정 (Settings) =====
+const Settings = {
+  KEY: 'tkd_settings',
+  defaults: { dark: false, fontSize: 'normal', feedback: 'pro' },
+  get() {
+    try {
+      const stored = JSON.parse(localStorage.getItem(this.KEY) || '{}');
+      return { ...this.defaults, ...stored };
+    } catch (_) { return { ...this.defaults }; }
+  },
+  set(patch) {
+    const next = { ...this.get(), ...patch };
+    try { localStorage.setItem(this.KEY, JSON.stringify(next)); } catch (_) {}
+    applySettings();
+    return next;
+  },
+};
+
+function applySettings() {
+  const s = Settings.get();
+  const root = document.documentElement;
+  root.classList.toggle('dark', !!s.dark);
+  root.classList.remove('font-small', 'font-large');
+  if (s.fontSize === 'small') root.classList.add('font-small');
+  if (s.fontSize === 'large') root.classList.add('font-large');
+}
+applySettings();
+
+// ===== 품새 기준 (PoomsaeRefs) =====
+const POOMSAE_LIST = [
+  { key: '태극1장', name: '태극 1장', level: '8급' },
+  { key: '태극2장', name: '태극 2장', level: '7급' },
+  { key: '태극3장', name: '태극 3장', level: '6급' },
+  { key: '태극4장', name: '태극 4장', level: '5급' },
+  { key: '태극5장', name: '태극 5장', level: '4급' },
+  { key: '태극6장', name: '태극 6장', level: '3급' },
+  { key: '태극7장', name: '태극 7장', level: '2급' },
+  { key: '태극8장', name: '태극 8장', level: '1급' },
+  { key: '고려', name: '고려', level: '1단' },
+  { key: '금강', name: '금강', level: '2단' },
+];
+
+const PoomsaeRefs = {
+  KEY: 'tkd_poomsae_refs',
+  getAll() {
+    try { return JSON.parse(localStorage.getItem(this.KEY) || '{}'); }
+    catch (_) { return {}; }
+  },
+  get(name) { return this.getAll()[name] || null; },
+  set(name, data) {
+    const all = this.getAll();
+    all[name] = { ...data, registeredAt: new Date().toISOString() };
+    try { localStorage.setItem(this.KEY, JSON.stringify(all)); return true; }
+    catch (_) { return false; }
+  },
+  remove(name) {
+    const all = this.getAll();
+    delete all[name];
+    try { localStorage.setItem(this.KEY, JSON.stringify(all)); } catch (_) {}
+  },
+};
+
+// ===== 개발자 모드 (숨김) =====
+const DevMode = {
+  KEY: 'tkd_dev_mode',
+  isOn: () => localStorage.getItem('tkd_dev_mode') === '1',
+  set(on) {
+    if (on) localStorage.setItem('tkd_dev_mode', '1');
+    else localStorage.removeItem('tkd_dev_mode');
+    applyDevMode();
+  },
+};
+
+function applyDevMode() {
+  const on = DevMode.isOn();
+  const ytSection = document.getElementById('ytUrlSection');
+  const devRow = document.getElementById('devStatusRow');
+  const pmSection = document.getElementById('poomsaeRefSection');
+  if (ytSection) ytSection.classList.toggle('hidden', !on);
+  if (devRow) devRow.classList.toggle('hidden', !on);
+  if (pmSection) pmSection.classList.toggle('hidden', !on);
+}
+applyDevMode();
+
+let _modeTaps = 0;
+let _modeTapTimer = null;
+document.addEventListener('click', (e) => {
+  if (!e.target || e.target.id !== 'modeLabel') return;
+  _modeTaps++;
+  clearTimeout(_modeTapTimer);
+  _modeTapTimer = setTimeout(() => { _modeTaps = 0; }, 2000);
+  if (_modeTaps >= 7) {
+    _modeTaps = 0;
+    const wasOn = DevMode.isOn();
+    DevMode.set(!wasOn);
+    if (wasOn) alert('🔒 개발자 모드 꺼짐');
+    else alert('🎉 개발자 모드 켜짐!\n업로드 화면에서 YouTube URL 분석 가능해요.');
+  }
+});
+
+function openSettings() {
+  const s = Settings.get();
+  const dk = document.getElementById('settingDark');
+  const fs = document.getElementById('settingFontSize');
+  const fm = document.getElementById('settingFeedbackMode');
+  if (dk) dk.checked = !!s.dark;
+  if (fs) fs.value = s.fontSize || 'normal';
+  if (fm) fm.value = s.feedback || 'pro';
+  renderPoomsaeRefList();
+  showScreen('settings');
+}
+
+function renderPoomsaeRefList() {
+  const list = document.getElementById('poomsaeRefList');
+  if (!list) return;
+  const all = PoomsaeRefs.getAll();
+  list.innerHTML = '';
+  POOMSAE_LIST.forEach((p) => {
+    const ref = all[p.key];
+    const row = document.createElement('button');
+    row.className = 'pm-row';
+    row.innerHTML =
+      '<div class="pm-info">' +
+        '<span class="pm-name">' + escapeHtml(p.name) + '</span>' +
+        '<span class="pm-meta">' + escapeHtml(p.level) +
+          (ref ? ' · ' + new Date(ref.registeredAt).toLocaleDateString('ko-KR') + ' 덮어씀' : '') +
+        '</span>' +
+      '</div>' +
+      '<span class="pm-status ' + (ref ? 'set' : 'empty') + '">' +
+        (ref ? '✏️ 덮어씀' : '🌐 기본값') +
+      '</span>';
+    row.addEventListener('click', () => openPoomsaeRegistration(p.key, p.name));
+    list.appendChild(row);
+  });
+}
+
+// ===== 품새 등록 모달 =====
+let _pmRegName = '';
+let _pmExtracted = null;
+
+function pmShowStep(n) {
+  ['pmStep1', 'pmStep2', 'pmStep3', 'pmStep4'].forEach((id, i) => {
+    const el = document.getElementById(id);
+    if (el) el.classList.toggle('hidden', i !== (n - 1));
+  });
+}
+
+function openPoomsaeRegistration(key, displayName) {
+  _pmRegName = key;
+  _pmExtracted = null;
+  document.getElementById('pmRegTitle').textContent = displayName + ' 기준 덮어쓰기';
+  document.getElementById('pmRegFile').value = '';
+  document.getElementById('pmRegYtUrl').value = '';
+  pmUpdateExtractBtn();
+  pmShowStep(1);
+  document.getElementById('poomsaeRegModal').classList.add('active');
+}
+
+function closePoomsaeRegistration() {
+  document.getElementById('poomsaeRegModal').classList.remove('active');
+}
+
+function pmUpdateExtractBtn() {
+  const file = document.getElementById('pmRegFile').files[0];
+  const url = document.getElementById('pmRegYtUrl').value.trim();
+  document.getElementById('pmExtractBtn').disabled = !file && !url;
+}
+
+document.addEventListener('change', (e) => {
+  if (e.target && e.target.id === 'pmRegFile') pmUpdateExtractBtn();
+});
+document.addEventListener('input', (e) => {
+  if (e.target && e.target.id === 'pmRegYtUrl') pmUpdateExtractBtn();
+});
+
+function pmRunExtract() {
+  const file = document.getElementById('pmRegFile').files[0];
+  const url = document.getElementById('pmRegYtUrl').value.trim();
+  if (!file && !url) return;
+
+  pmShowStep(2);
+  const fd = new FormData();
+  if (file) fd.append('file', file);
+  if (url && !file) fd.append('youtube_url', url);
+  fd.append('poomsae_name', _pmRegName);
+
+  const xhr = new XMLHttpRequest();
+  xhr.open('POST', '/extract_sequence');
+  xhr.upload.onprogress = (e) => {
+    if (e.lengthComputable && file) {
+      const pct = Math.round((e.loaded / e.total) * 100);
+      document.getElementById('pmExtractStatus').textContent = '📤 업로드 중... ' + pct + '%';
+    }
+  };
+  xhr.upload.onload = () => {
+    document.getElementById('pmExtractStatus').textContent = 'AI가 동작 추출 중... (30초~3분)';
+  };
+  xhr.onload = () => {
+    let data = {};
+    try { data = JSON.parse(xhr.responseText); } catch (_) {}
+    if (xhr.status >= 200 && xhr.status < 300) {
+      _pmExtracted = data;
+      pmRenderExtractResult(data);
+      pmShowStep(3);
+    } else {
+      pmShowError(data.error || ('HTTP ' + xhr.status));
+    }
+  };
+  xhr.onerror = () => pmShowError('네트워크 에러 — 인터넷 확인');
+  xhr.send(fd);
+}
+
+function pmShowError(msg) {
+  document.getElementById('pmErrorBox').textContent = '에러: ' + msg;
+  pmShowStep(4);
+}
+
+function pmRenderExtractResult(data) {
+  const list = document.getElementById('pmSequenceList');
+  const summary = document.getElementById('pmResultSummary');
+  list.innerHTML = '';
+
+  if (data.mismatch) {
+    summary.innerHTML = '⚠️ Gemini가 이 영상을 ' + escapeHtml(_pmRegName) + '으로 식별 못 했어요. 다른 영상 시도하세요.';
+    document.getElementById('pmSaveBtn').disabled = true;
+    return;
+  }
+  document.getElementById('pmSaveBtn').disabled = false;
+
+  const seq = data.sequence || [];
+  summary.textContent = '총 ' + seq.length + '개 동작 추출됨' + (data.summary_note ? ' · ' + data.summary_note : '');
+
+  seq.forEach((s) => {
+    const item = document.createElement('div');
+    item.className = 'pm-seq-item';
+    const t = (typeof s.timestamp_sec === 'number')
+      ? Math.floor(s.timestamp_sec / 60) + ':' + String(Math.floor(s.timestamp_sec % 60)).padStart(2, '0')
+      : '';
+    item.innerHTML =
+      '<div class="pm-seq-n">' + (s.n || '?') + '</div>' +
+      '<div class="pm-seq-detail">' +
+        '<div>' + escapeHtml(s.technique || '') + (s.kihap ? ' 🗣' : '') + '</div>' +
+        '<div class="stance">' + escapeHtml(s.stance || '') +
+          (s.direction ? ' · ' + escapeHtml(s.direction) : '') +
+          (s.notes ? ' · ' + escapeHtml(s.notes) : '') +
+        '</div>' +
+      '</div>' +
+      '<div class="pm-seq-time">' + t + '</div>';
+    list.appendChild(item);
+  });
+}
+
+function pmSaveExtract() {
+  if (!_pmExtracted || !_pmRegName) return;
+  const ok = PoomsaeRefs.set(_pmRegName, _pmExtracted);
+  if (!ok) { alert('저장 실패 (저장 공간 부족일 수 있어요)'); return; }
+  closePoomsaeRegistration();
+  renderPoomsaeRefList();
+  alert('✅ ' + _pmRegName + ' 기준 덮어쓰기 완료!');
+}
+
+document.addEventListener('click', (e) => {
+  if (!e.target) return;
+  if (e.target.id === 'pmExtractBtn') pmRunExtract();
+  else if (e.target.id === 'pmSaveBtn') pmSaveExtract();
+  else if (e.target.id === 'pmRetryBtn') pmShowStep(1);
+  else if (e.target.id === 'pmRetryFromErrorBtn') pmShowStep(1);
+  else if (e.target.id === 'pmRegClose') closePoomsaeRegistration();
+});
+document.getElementById('poomsaeRegModal').addEventListener('click', (e) => {
+  if (e.target.id === 'poomsaeRegModal') closePoomsaeRegistration();
+});
+
+document.addEventListener('change', (e) => {
+  if (e.target && e.target.id === 'settingDark') Settings.set({ dark: e.target.checked });
+  else if (e.target && e.target.id === 'settingFontSize') Settings.set({ fontSize: e.target.value });
+  else if (e.target && e.target.id === 'settingFeedbackMode') Settings.set({ feedback: e.target.value });
+});
+
+function openUserMenuFromSettings() {
+  document.getElementById('userMenu').classList.add('active');
+}
+
+function exportData() {
+  const users = Store.getUsers();
+  const allHistory = {};
+  users.forEach((u) => { allHistory[u.id] = Store.getHistory(u.id); });
+  const data = {
+    app: 'taekwondo-coach',
+    version: 1,
+    exportedAt: new Date().toISOString(),
+    users,
+    history: allHistory,
+    settings: Settings.get(),
+  };
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  const date = new Date().toISOString().slice(0, 10);
+  a.download = `taekwondo_backup_${date}.json`;
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(() => { URL.revokeObjectURL(url); a.remove(); }, 100);
+}
+
+function importDataPrompt() {
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = 'application/json,.json';
+  input.addEventListener('change', async (e) => {
+    const file = e.target.files && e.target.files[0];
+    if (!file) return;
+    if (!confirm('백업 파일로 현재 데이터를 덮어쓸까요? 되돌릴 수 없어요.')) return;
+    try {
+      const text = await file.text();
+      const data = JSON.parse(text);
+      if (!data || data.app !== 'taekwondo-coach') {
+        alert('이 앱의 백업 파일이 아니에요.');
+        return;
+      }
+      if (Array.isArray(data.users)) Store.setUsers(data.users);
+      if (data.history && typeof data.history === 'object') {
+        Object.entries(data.history).forEach(([uid, list]) => {
+          try { localStorage.setItem('tkd_history_' + uid, JSON.stringify(list || [])); } catch (_) {}
+        });
+      }
+      if (data.settings) {
+        try { localStorage.setItem(Settings.KEY, JSON.stringify(data.settings)); } catch (_) {}
+      }
+      alert('불러오기 완료! 페이지를 새로고침할게요.');
+      location.reload();
+    } catch (err) {
+      alert('파일을 읽는 중 문제가 있어요: ' + err.message);
+    }
+  });
+  input.click();
+}
+
+function showScreen(name) {
+  Object.values(SCREEN_IDS).forEach((id) => {
+    const el = document.getElementById(id);
+    if (el) el.classList.remove('active');
+  });
+  const target = document.getElementById(SCREEN_IDS[name]);
+  if (target) target.classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function goTo(n) {
+  // 기존 wizard 호환 (1=종류, 2=연령, 3=업로드, 4=결과)
+  const map = { 1: 'main', 2: 'age', 3: 'upload', 4: 'result' };
+  if (map[n]) showScreen(map[n]);
+}
+
+function goToMain() {
+  state.category = null;
+  state.age = null;
+  resetUpload();
+  updateHeader();
+  showScreen('main');
+}
+
+// ===== 부팅 =====
+function boot() {
+  if (!Store.getConsent()) { showScreen('consent'); return; }
+  const cur = Store.getCurrentUser();
+  if (cur) { enterMain(); return; }
+  if (Store.getUsers().length === 0) { showScreen('signup'); return; }
+  renderUserList();
+  showScreen('login');
+}
+
+function enterMain() {
+  updateHeader();
+  showScreen('main');
+}
+
+function updateHeader() {
+  const cur = Store.getCurrentUser();
+  const name = cur ? cur.name : '';
+  document.querySelectorAll('.userName').forEach(el => el.textContent = name);
+}
+
+// ===== 동의 =====
+const consentCheck1 = document.getElementById('consentCheck1');
+const consentCheck2 = document.getElementById('consentCheck2');
+const consentCheck3 = document.getElementById('consentCheck3');
+const consentBtn = document.getElementById('consentBtn');
+function checkConsent() {
+  consentBtn.disabled = !(consentCheck1.checked && consentCheck2.checked && consentCheck3.checked);
+}
+consentCheck1.addEventListener('change', checkConsent);
+consentCheck2.addEventListener('change', checkConsent);
+consentCheck3.addEventListener('change', checkConsent);
+consentBtn.addEventListener('click', () => {
+  Store.setConsent();
+  if (Store.getUsers().length === 0) showScreen('signup');
+  else { renderUserList(); showScreen('login'); }
+});
+
+// ===== 회원가입 =====
+const signupName = document.getElementById('signupName');
+const signupPin = document.getElementById('signupPin');
+const signupUnder14 = document.getElementById('signupUnder14');
+const signupGuardian = document.getElementById('signupGuardian');
+const signupError = document.getElementById('signupError');
+const guardianField = document.getElementById('guardianField');
+const signupBack = document.getElementById('signupBack');
+
+signupUnder14.addEventListener('change', () => {
+  guardianField.classList.toggle('hidden', !signupUnder14.checked);
+});
+
+signupBack.addEventListener('click', () => {
+  if (Store.getUsers().length > 0) {
+    renderUserList();
+    showScreen('login');
+  }
+});
+
+document.getElementById('signupBtn').addEventListener('click', () => {
+  signupError.classList.add('hidden');
+  const name = signupName.value.trim();
+  const pin = signupPin.value.trim();
+  const isUnder14 = signupUnder14.checked;
+  const guardianName = signupGuardian.value.trim();
+
+  if (!name) { showSignupError('이름을 입력해주세요'); return; }
+  if (!/^\d{4}$/.test(pin)) { showSignupError('PIN은 숫자 4자리예요'); return; }
+  if (Store.getUsers().some(u => u.name === name)) { showSignupError('같은 이름이 이미 있어요. 다른 이름을 쓰거나 뒤에 숫자를 붙여주세요.'); return; }
+  if (isUnder14 && !guardianName) { showSignupError('보호자 이름을 입력해주세요'); return; }
+
+  const user = Store.addUser({ name, pin, isUnder14, guardianName });
+  Store.setCurrentUserId(user.id);
+  signupName.value = '';
+  signupPin.value = '';
+  signupUnder14.checked = false;
+  signupGuardian.value = '';
+  guardianField.classList.add('hidden');
+  enterMain();
+});
+
+function showSignupError(msg) {
+  signupError.textContent = msg;
+  signupError.classList.remove('hidden');
+}
+
+// ===== 로그인 (사용자 카드 리스트) =====
+const userListEl = document.getElementById('userList');
+function renderUserList() {
+  const users = Store.getUsers();
+  userListEl.innerHTML = '';
+  users.forEach(u => {
+    const btn = document.createElement('button');
+    btn.className = 'user-card-btn';
+    btn.innerHTML = `
+      <div class="avatar">${(u.name[0] || '?').toUpperCase()}</div>
+      <div>
+        <div class="user-info-name">${escapeHtml(u.name)}</div>
+        <div class="user-info-meta">가입 ${formatDate(u.createdAt)}</div>
+      </div>
+    `;
+    btn.addEventListener('click', () => startLoginFor(u.id));
+    userListEl.appendChild(btn);
+  });
+}
+
+document.getElementById('addUserBtn').addEventListener('click', () => {
+  document.getElementById('signupBack').style.visibility = 'visible';
+  showScreen('signup');
+});
+
+let loginTargetUserId = null;
+function startLoginFor(userId) {
+  loginTargetUserId = userId;
+  const u = Store.getUserById(userId);
+  document.getElementById('pinTitle').textContent = u.name + ' — PIN 입력';
+  document.getElementById('pinInput').value = '';
+  document.getElementById('pinError').classList.add('hidden');
+  showScreen('pin');
+  setTimeout(() => document.getElementById('pinInput').focus(), 60);
+}
+
+document.getElementById('pinBack').addEventListener('click', () => {
+  loginTargetUserId = null;
+  renderUserList();
+  showScreen('login');
+});
+
+document.getElementById('pinSubmitBtn').addEventListener('click', tryLogin);
+document.getElementById('pinInput').addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') tryLogin();
+});
+
+function tryLogin() {
+  const u = Store.getUserById(loginTargetUserId);
+  const pin = document.getElementById('pinInput').value.trim();
+  const err = document.getElementById('pinError');
+  if (!u) { err.textContent = '사용자를 찾을 수 없어요'; err.classList.remove('hidden'); return; }
+  if (pin !== u.pin) {
+    err.textContent = 'PIN이 달라요';
+    err.classList.remove('hidden');
+    return;
+  }
+  Store.setCurrentUserId(u.id);
+  enterMain();
+}
+
+// ===== 사용자 메뉴 =====
+const userMenu = document.getElementById('userMenu');
+function openUserMenu() { userMenu.classList.add('active'); }
+function closeUserMenu() { userMenu.classList.remove('active'); }
+document.getElementById('userChip1').addEventListener('click', openUserMenu);
+document.getElementById('menuClose').addEventListener('click', closeUserMenu);
+userMenu.addEventListener('click', (e) => { if (e.target === userMenu) closeUserMenu(); });
+
+document.getElementById('menuSwitchUser').addEventListener('click', () => {
+  closeUserMenu();
+  Store.clearCurrentUser();
+  renderUserList();
+  showScreen('login');
+});
+document.getElementById('menuAddUser').addEventListener('click', () => {
+  closeUserMenu();
+  document.getElementById('signupBack').style.visibility = Store.getUsers().length > 0 ? 'visible' : 'hidden';
+  showScreen('signup');
+});
+document.getElementById('menuLogout').addEventListener('click', () => {
+  closeUserMenu();
+  Store.clearCurrentUser();
+  if (Store.getUsers().length === 0) showScreen('signup');
+  else { renderUserList(); showScreen('login'); }
+});
+document.getElementById('menuDeleteAccount').addEventListener('click', () => {
+  closeUserMenu();
+  const cur = Store.getCurrentUser();
+  if (!cur) return;
+  if (!confirm(`정말 "${cur.name}" 계정과 모든 분석 기록을 지울까요? 되돌릴 수 없어요.`)) return;
+  Store.deleteUser(cur.id);
+  Store.clearCurrentUser();
+  if (Store.getUsers().length === 0) showScreen('signup');
+  else { renderUserList(); showScreen('login'); }
+});
+
+// ===== Wizard =====
+const state = { category: null, age: null };
+
+function restart() {
+  state.category = null;
+  state.age = null;
+  resetUpload();
+  showScreen('main');
+}
+
+function resetUpload() {
+  const fileInput = document.getElementById('fileInput');
+  if (fileInput) fileInput.value = '';
+  mediaFile = null;
+  mediaIsVideo = false;
+  document.getElementById('uploadEmpty').classList.remove('hidden');
+  document.getElementById('uploadArea').classList.remove('has-file');
+  document.getElementById('preview-img').style.display = 'none';
+  document.getElementById('preview-video').style.display = 'none';
+  document.getElementById('selectedState').classList.remove('active');
+  document.getElementById('analyzeBtn').disabled = true;
+  document.getElementById('result').classList.add('hidden');
+  document.getElementById('error').classList.add('hidden');
+  document.getElementById('savedBadge').classList.add('hidden');
+  const yt = document.getElementById('ytUrlInput');
+  if (yt) yt.value = '';
+  clearAnnotations();
+}
+
+let _videoTimeUpdateHandler = null;
+
+function clearAnnotations() {
+  const wrap = document.getElementById('annotatedWrap');
+  const legend = document.getElementById('annotationLegend');
+  const videoWrap = document.getElementById('annotatedVideoWrap');
+  const video = document.getElementById('annotated-video');
+  const videoMarkers = document.getElementById('videoMarkers');
+  const momentsList = document.getElementById('momentsList');
+
+  if (wrap) {
+    wrap.querySelectorAll('.annotation-marker').forEach((el) => el.remove());
+    wrap.classList.add('hidden');
+  }
+  if (legend) legend.classList.add('hidden');
+
+  if (video && _videoTimeUpdateHandler) {
+    video.removeEventListener('timeupdate', _videoTimeUpdateHandler);
+    _videoTimeUpdateHandler = null;
+  }
+  if (video) {
+    try { video.pause(); } catch (_) {}
+    video.removeAttribute('src');
+    video.load();
+  }
+  if (videoMarkers) videoMarkers.innerHTML = '';
+  if (videoWrap) videoWrap.classList.add('hidden');
+  if (momentsList) {
+    momentsList.innerHTML = '';
+    momentsList.classList.add('hidden');
+  }
+}
+
+function _renderMarker(target, a) {
+  const x = Math.max(0, Math.min(100, Number(a.x) || 0));
+  const y = Math.max(0, Math.min(100, Number(a.y) || 0));
+  const isGood = a.type === 'good';
+  const marker = document.createElement('div');
+  marker.className = 'annotation-marker ' + (isGood ? 'good' : 'bad');
+  marker.style.left = x + '%';
+  marker.style.top = y + '%';
+  marker.innerHTML =
+    '<div class="annotation-dot">' + (isGood ? '👍' : '!') + '</div>' +
+    '<div class="annotation-label">' + escapeHtml(a.label || '') + '</div>';
+  target.appendChild(marker);
+}
+
+function renderAnnotations(file, annotations, isVideo) {
+  if (isVideo || !annotations || annotations.length === 0) return;
+  const wrap = document.getElementById('annotatedWrap');
+  const legend = document.getElementById('annotationLegend');
+  const img = document.getElementById('annotated-img');
+  const blobUrl = URL.createObjectURL(file);
+  img.onload = () => {
+    annotations.forEach((a) => _renderMarker(wrap, a));
+  };
+  img.src = blobUrl;
+  wrap.classList.remove('hidden');
+  legend.classList.remove('hidden');
+}
+
+function formatVideoTime(seconds) {
+  const s = Math.max(0, Math.floor(Number(seconds) || 0));
+  const m = Math.floor(s / 60);
+  const r = s % 60;
+  return m + ':' + (r < 10 ? '0' + r : r);
+}
+
+function renderMoments(file, moments, isVideo, ytUrl) {
+  if (!isVideo || !moments || moments.length === 0) return;
+  const wrap = document.getElementById('annotatedVideoWrap');
+  const video = document.getElementById('annotated-video');
+  const markers = document.getElementById('videoMarkers');
+  const list = document.getElementById('momentsList');
+  const legend = document.getElementById('annotationLegend');
+
+  const sorted = [...moments].sort((a, b) => (a.timestamp || 0) - (b.timestamp || 0));
+
+  list.innerHTML = '<div class="moments-title">🎬 주요 순간</div>';
+  sorted.forEach((m, i) => {
+    const card = document.createElement('div');
+    card.className = 'moment-card';
+    card.dataset.idx = i;
+    card.innerHTML =
+      '<div class="moment-time">' + formatVideoTime(m.timestamp) + '</div>' +
+      '<div class="moment-desc">' + escapeHtml(m.description || '') + '</div>';
+    card.addEventListener('click', () => {
+      if (file) {
+        try {
+          video.currentTime = Number(m.timestamp) || 0;
+          video.pause();
+        } catch (_) {}
+      } else if (ytUrl) {
+        const t = Math.floor(Number(m.timestamp) || 0);
+        const sep = ytUrl.includes('?') ? '&' : '?';
+        window.open(ytUrl + sep + 't=' + t + 's', '_blank', 'noopener');
+      }
+    });
+    list.appendChild(card);
+  });
+
+  if (file) {
+    const update = () => {
+      const t = video.currentTime;
+      let activeIdx = -1;
+      let minDiff = Infinity;
+      sorted.forEach((m, i) => {
+        const diff = Math.abs((m.timestamp || 0) - t);
+        if (diff < 1 && diff < minDiff) { minDiff = diff; activeIdx = i; }
+      });
+      markers.innerHTML = '';
+      if (activeIdx >= 0) sorted[activeIdx].annotations.forEach((a) => _renderMarker(markers, a));
+      list.querySelectorAll('.moment-card').forEach((card, i) => {
+        card.classList.toggle('active', i === activeIdx);
+      });
+    };
+    _videoTimeUpdateHandler = update;
+    video.addEventListener('timeupdate', update);
+    video.addEventListener('seeked', update);
+    video.src = URL.createObjectURL(file);
+    wrap.classList.remove('hidden');
+  }
+  list.classList.remove('hidden');
+  legend.classList.remove('hidden');
+}
+
+function setSummaryPills(category, ageLabel) {
+  const cat1 = document.getElementById('pillCategory');
+  const cat2 = document.getElementById('pillCategory2');
+  const age1 = document.getElementById('pillAge');
+  const age2 = document.getElementById('pillAge2');
+  if (cat1) cat1.textContent = category || '';
+  if (cat2) cat2.textContent = category || '';
+  if (ageLabel) {
+    if (age1) { age1.textContent = ageLabel; age1.style.display = ''; }
+    if (age2) { age2.textContent = ageLabel; age2.style.display = ''; }
+  } else {
+    if (age1) age1.style.display = 'none';
+    if (age2) age2.style.display = 'none';
+  }
+}
+
+function backFromUpload() {
+  if (Settings.get().feedback === 'easy') showScreen('age');
+  else showScreen('main');
+}
+
+document.querySelectorAll('.tri-card').forEach((card) => {
+  card.addEventListener('click', () => {
+    state.category = card.dataset.cat;
+    if (Settings.get().feedback === 'easy') {
+      showScreen('age');
+    } else {
+      state.age = 'default';
+      setSummaryPills(state.category, '');
+      showScreen('upload');
+    }
+  });
+});
+
+document.querySelectorAll('.age-card').forEach((card) => {
+  card.addEventListener('click', () => {
+    state.age = card.dataset.age;
+    setSummaryPills(state.category, card.querySelector('.age-name').textContent);
+    showScreen('upload');
+  });
+});
+
+// ===== 업로드 =====
+const fileInput = document.getElementById('fileInput');
+const uploadArea = document.getElementById('uploadArea');
+const uploadEmpty = document.getElementById('uploadEmpty');
+const previewImg = document.getElementById('preview-img');
+const previewVideo = document.getElementById('preview-video');
+const analyzeBtn = document.getElementById('analyzeBtn');
+const loading = document.getElementById('loading');
+const loadingText = document.getElementById('loadingText');
+const result = document.getElementById('result');
+const feedback = document.getElementById('feedback');
+const errorBox = document.getElementById('error');
+const screen3Error = document.getElementById('screen3Error');
+
+const MAX_SIZE = 200 * 1024 * 1024;
+let mediaFile = null;
+let mediaIsVideo = false;
+
+function formatSize(bytes) {
+  if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+  return (bytes / 1024 / 1024).toFixed(1) + ' MB';
+}
+
+fileInput.addEventListener('change', (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+  errorBox.classList.add('hidden');
+  screen3Error.classList.add('hidden');
+  result.classList.add('hidden');
+
+  if (file.size > MAX_SIZE) {
+    screen3Error.textContent = `📏 파일이 너무 커요 (${formatSize(file.size)}). 200MB 이하로 줄여주세요.`;
+    screen3Error.classList.remove('hidden');
+    resetUpload();
+    screen3Error.classList.remove('hidden');
+    return;
+  }
+
+  const isVideo = file.type.startsWith('video/');
+  mediaFile = file;
+  mediaIsVideo = isVideo;
+
+  previewImg.style.display = 'none';
+  previewVideo.style.display = 'none';
+  uploadEmpty.classList.add('hidden');
+  uploadArea.classList.add('has-file');
+
+  document.getElementById('selectedName').textContent = file.name;
+  document.getElementById('selectedMeta').textContent =
+    (isVideo ? '🎬 영상 · ' : '📷 사진 · ') + formatSize(file.size);
+  document.getElementById('selectedState').classList.add('active');
+
+  if (isVideo) {
+    const blobUrl = URL.createObjectURL(file);
+    previewVideo.src = blobUrl;
+    previewVideo.style.display = 'block';
+    previewVideo.onerror = () => {
+      previewVideo.style.display = 'none';
+      document.getElementById('selectedMeta').textContent += ' (미리보기 X, 분석은 OK)';
+    };
+  } else {
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      previewImg.src = ev.target.result;
+      previewImg.style.display = 'block';
+    };
+    reader.readAsDataURL(file);
+  }
+  updateAnalyzeBtnState();
+});
+
+function updateAnalyzeBtnState() {
+  const yt = document.getElementById('ytUrlInput');
+  const url = yt ? yt.value.trim() : '';
+  analyzeBtn.disabled = !mediaFile && !url;
+}
+
+const ytUrlInputEl = document.getElementById('ytUrlInput');
+if (ytUrlInputEl) {
+  ytUrlInputEl.addEventListener('input', updateAnalyzeBtnState);
+}
+
+// ===== 썸네일 =====
+function makeThumbnail(file, isVideo) {
+  return new Promise((resolve) => {
+    const W = 240;
+    if (isVideo) {
+      const v = document.createElement('video');
+      v.src = URL.createObjectURL(file);
+      v.muted = true;
+      v.playsInline = true;
+      let done = false;
+      const finish = (data) => { if (done) return; done = true; try { URL.revokeObjectURL(v.src); } catch(_) {} resolve(data); };
+      v.onloadeddata = () => { try { v.currentTime = 0.1; } catch(_) { finish(null); } };
+      v.onseeked = () => {
+        try {
+          const c = document.createElement('canvas');
+          const H = Math.round(v.videoHeight * W / v.videoWidth);
+          c.width = W; c.height = H;
+          c.getContext('2d').drawImage(v, 0, 0, W, H);
+          finish(c.toDataURL('image/jpeg', 0.55));
+        } catch (_) { finish(null); }
+      };
+      v.onerror = () => finish(null);
+      setTimeout(() => finish(null), 4000);
+    } else {
+      const reader = new FileReader();
+      reader.onload = (ev) => {
+        const img = new Image();
+        img.onload = () => {
+          try {
+            const c = document.createElement('canvas');
+            const H = Math.round(img.height * W / img.width);
+            c.width = W; c.height = H;
+            c.getContext('2d').drawImage(img, 0, 0, W, H);
+            resolve(c.toDataURL('image/jpeg', 0.55));
+          } catch (_) { resolve(null); }
+        };
+        img.onerror = () => resolve(null);
+        img.src = ev.target.result;
+      };
+      reader.onerror = () => resolve(null);
+      reader.readAsDataURL(file);
+    }
+  });
+}
+
+// ===== 분석 =====
+let _lastAnalyzeParams = null;
+
+function showAnalyzeError(msg) {
+  document.getElementById('errorMsg').textContent = msg;
+  errorBox.classList.remove('hidden');
+  const retryBtn = document.getElementById('retryBtn');
+  if (retryBtn) retryBtn.style.display = _lastAnalyzeParams ? 'inline-block' : 'none';
+}
+
+function runAnalyze(params) {
+  const { fileSnap, ytUrlSnap, isVideoSnap, category, age, mode } = params;
+  _lastAnalyzeParams = params;
+
+  showScreen('result');
+  loading.classList.remove('hidden');
+  result.classList.add('hidden');
+  errorBox.classList.add('hidden');
+  document.getElementById('savedBadge').classList.add('hidden');
+  clearAnnotations();
+
+  const useYt = !fileSnap && !!ytUrlSnap;
+
+  const formData = new FormData();
+  if (fileSnap) formData.append('file', fileSnap);
+  if (useYt) formData.append('youtube_url', ytUrlSnap);
+  formData.append('category', category);
+  formData.append('age', age);
+  formData.append('mode', mode);
+
+  // 품새이고 등록된 기준이 있으면 함께 전송 (등록된 품새 자동 매칭)
+  if (category === '품새') {
+    const refs = PoomsaeRefs.getAll();
+    const matched = Object.keys(refs).find((name) => true); // 일단 첫 등록 기준 X — 영상에서 어떤 품새인지 모르니 모두 보냄
+    // 등록된 모든 품새 시퀀스를 같이 보냄. Gemini가 영상 보고 매칭.
+    const refList = Object.entries(refs).map(([name, data]) => ({
+      poomsae: name,
+      sequence: data.sequence || [],
+    }));
+    if (refList.length > 0) {
+      formData.append('reference_sequence', JSON.stringify(refList));
+    }
+  }
+
+  const xhr = new XMLHttpRequest();
+  xhr.open('POST', '/analyze');
+
+  xhr.upload.onprogress = (e) => {
+    if (e.lengthComputable && fileSnap) {
+      const pct = Math.round((e.loaded / e.total) * 100);
+      loadingText.textContent = `📤 업로드 중... ${pct}%`;
+    }
+  };
+
+  xhr.upload.onload = () => {
+    if (useYt) {
+      loadingText.textContent = '📺 YouTube 영상 분석 중... (30초~3분)';
+    } else {
+      loadingText.textContent = isVideoSnap
+        ? '🎬 AI가 영상 분석 중... (30초~3분)'
+        : '📷 AI가 사진 분석 중... (10~30초)';
+    }
+  };
+
+  xhr.onload = async () => {
+    loading.classList.add('hidden');
+    let data = {};
+    try { data = JSON.parse(xhr.responseText); } catch (_) {}
+    if (xhr.status >= 200 && xhr.status < 300) {
+      const text = data.feedback || '';
+      const formatted = text
+        .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+        .replace(/^\* /gm, '• ')
+        .replace(/^  \* /gm, '  • ');
+      feedback.innerHTML = formatted;
+      result.classList.remove('hidden');
+      renderAnnotations(fileSnap, data.annotations || [], isVideoSnap);
+      renderMoments(fileSnap, data.moments || [], isVideoSnap, ytUrlSnap);
+
+      const userId = Store.getCurrentUserId();
+      if (userId && fileSnap) {
+        const thumb = await makeThumbnail(fileSnap, isVideoSnap);
+        const ok = Store.addHistoryItem(userId, {
+          category,
+          age,
+          isVideo: isVideoSnap,
+          thumbnail: thumb,
+          feedback: text,
+        });
+        if (ok) document.getElementById('savedBadge').classList.remove('hidden');
+      }
+    } else {
+      showAnalyzeError('에러: ' + (data.error || `HTTP ${xhr.status}`));
+    }
+  };
+
+  xhr.onerror = () => {
+    loading.classList.add('hidden');
+    showAnalyzeError('네트워크 에러 — 인터넷 연결 확인해주세요');
+  };
+
+  xhr.send(formData);
+}
+
+analyzeBtn.addEventListener('click', () => {
+  const ytEl = document.getElementById('ytUrlInput');
+  const ytUrl = ytEl ? ytEl.value.trim() : '';
+  const useYt = !mediaFile && !!ytUrl;
+  if (!mediaFile && !ytUrl) return;
+  runAnalyze({
+    fileSnap: mediaFile,
+    ytUrlSnap: useYt ? ytUrl : '',
+    isVideoSnap: useYt ? true : mediaIsVideo,
+    category: state.category,
+    age: state.age,
+    mode: Settings.get().feedback || 'pro',
+  });
+});
+
+document.addEventListener('click', (e) => {
+  if (e.target && e.target.id === 'retryBtn' && _lastAnalyzeParams) {
+    runAnalyze(_lastAnalyzeParams);
+  }
+});
+
+// ===== 성장 일기 =====
+let compareMode = false;
+let compareSelection = []; // [historyItem, ...]
+
+function openDiary() {
+  const userId = Store.getCurrentUserId();
+  if (!userId) return;
+  const list = Store.getHistory(userId);
+  const empty = document.getElementById('diaryEmpty');
+  const listEl = document.getElementById('diaryList');
+  const goBox = document.getElementById('compareGoBox');
+  listEl.innerHTML = '';
+  if (list.length === 0) {
+    empty.classList.remove('hidden');
+    compareMode = false;
+    compareSelection = [];
+    updateCompareUI();
+  } else {
+    empty.classList.add('hidden');
+    list.forEach(it => {
+      const item = document.createElement('div');
+      item.className = 'diary-item';
+      const thumb = it.thumbnail
+        ? `<div class="diary-thumb" style="background-image:url('${it.thumbnail}')"></div>`
+        : `<div class="diary-thumb">${it.isVideo ? '🎬' : '📷'}</div>`;
+      const preview = (it.feedback || '').replace(/\*\*/g, '').replace(/^[👍✨💪🌱🎯💌🔁]\s*/gm, '').slice(0, 60);
+      item.innerHTML = `
+        ${thumb}
+        <div class="diary-meta">
+          <div class="d-cat">${escapeHtml(it.category)}</div>
+          <div class="d-date">${formatDate(it.date)}</div>
+          <div class="d-preview">${escapeHtml(preview)}</div>
+        </div>
+      `;
+      if (compareMode) {
+        const idx = compareSelection.findIndex(x => x.id === it.id);
+        if (idx >= 0) {
+          item.classList.add('selected');
+          const badge = document.createElement('div');
+          badge.className = 'select-badge';
+          badge.textContent = idx + 1;
+          item.appendChild(badge);
+        }
+      }
+      item.addEventListener('click', () => {
+        if (compareMode) toggleCompareSelect(it);
+        else openDetail(it.id);
+      });
+      listEl.appendChild(item);
+    });
+  }
+  goBox.classList.toggle('hidden', !(compareMode && compareSelection.length === 2));
+  updateHeader();
+  showScreen('diary');
+}
+
+function updateCompareUI() {
+  const btn = document.getElementById('compareToggle');
+  const hint = document.getElementById('compareHint');
+  const goBox = document.getElementById('compareGoBox');
+  if (compareMode) {
+    btn.textContent = '✕ 비교 모드 끄기';
+    btn.classList.add('compare-on');
+    hint.classList.remove('hidden');
+  } else {
+    btn.textContent = '📊 비교 모드';
+    btn.classList.remove('compare-on');
+    hint.classList.add('hidden');
+    goBox.classList.add('hidden');
+  }
+}
+
+function toggleCompareSelect(it) {
+  const existIdx = compareSelection.findIndex(x => x.id === it.id);
+  if (existIdx >= 0) {
+    compareSelection.splice(existIdx, 1);
+  } else {
+    if (compareSelection.length >= 1 && compareSelection[0].category !== it.category) {
+      alert('같은 카테고리(품새/발차기/겨루기)끼리만 비교할 수 있어요. 다른 항목을 골라주세요.');
+      return;
+    }
+    if (compareSelection.length >= 2) {
+      compareSelection.shift();
+    }
+    compareSelection.push(it);
+  }
+  openDiary();
+}
+
+document.getElementById('compareToggle').addEventListener('click', () => {
+  compareMode = !compareMode;
+  compareSelection = [];
+  updateCompareUI();
+  openDiary();
+});
+
+document.getElementById('compareGoBtn').addEventListener('click', () => {
+  if (compareSelection.length !== 2) return;
+  const sorted = [...compareSelection].sort((a, b) => new Date(a.date) - new Date(b.date));
+  startCompare(sorted[0], sorted[1]);
+});
+
+function renderCompareCol(elId, label, it) {
+  const el = document.getElementById(elId);
+  const thumb = it.thumbnail
+    ? `<div class="col-thumb" style="background-image:url('${it.thumbnail}')"></div>`
+    : `<div class="col-thumb">${it.isVideo ? '🎬' : '📷'}</div>`;
+  const formattedFeedback = (it.feedback || '')
+    .replace(/\*\*(.+?)\*\*/g, '$1');
+  el.innerHTML = `
+    <h4>${label}</h4>
+    ${thumb}
+    <div class="col-date">${formatDate(it.date)}</div>
+    <div class="col-feedback">${escapeHtml(formattedFeedback)}</div>
+  `;
+}
+
+async function startCompare(earlier, later) {
+  document.getElementById('comparePill').textContent = earlier.category;
+  renderCompareCol('compareLeft', '이전', earlier);
+  renderCompareCol('compareRight', '지금', later);
+  const summaryEl = document.getElementById('compareSummary');
+  summaryEl.innerHTML = '<span class="spinner"></span>AI가 두 시점을 비교하고 있어요...';
+  showScreen('compare');
+
+  try {
+    const r = await fetch('/compare', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        category: earlier.category,
+        age: later.age || earlier.age || '초등중등',
+        date1: formatDate(earlier.date),
+        date2: formatDate(later.date),
+        feedback1: earlier.feedback || '',
+        feedback2: later.feedback || '',
+      }),
+    });
+    const data = await r.json().catch(() => ({}));
+    if (r.ok) {
+      const formatted = (data.summary || '')
+        .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+        .replace(/^\* /gm, '• ');
+      summaryEl.innerHTML = formatted || '(요약 비어있음)';
+    } else {
+      summaryEl.textContent = '에러: ' + (data.error || ('HTTP ' + r.status));
+    }
+  } catch (e) {
+    summaryEl.textContent = '네트워크 에러: ' + (e.message || e);
+  }
+}
+
+function openDetail(itemId) {
+  const userId = Store.getCurrentUserId();
+  const it = Store.getHistoryItem(userId, itemId);
+  if (!it) { openDiary(); return; }
+  const thumb = it.thumbnail
+    ? `<div class="detail-thumb" style="background-image:url('${it.thumbnail}')"></div>`
+    : `<div class="detail-thumb">${it.isVideo ? '🎬' : '📷'}</div>`;
+  const formatted = (it.feedback || '')
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/^\* /gm, '• ');
+  document.getElementById('detailContent').innerHTML = `
+    <div class="step-title">${escapeHtml(it.category)}</div>
+    <div class="subtitle">${formatDate(it.date)}</div>
+    ${thumb}
+    <div class="card">
+      <div class="feedback">${formatted}</div>
+    </div>
+  `;
+  document.getElementById('deleteItemBtn').onclick = () => {
+    if (!confirm('이 기록을 지울까요?')) return;
+    Store.deleteHistoryItem(userId, itemId);
+    openDiary();
+  };
+  showScreen('detail');
+}
+
+// ===== 유틸 =====
+function escapeHtml(s) {
+  return String(s || '').replace(/[&<>"']/g, (m) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m]));
+}
+function formatDate(iso) {
+  const d = new Date(iso);
+  if (isNaN(d.getTime())) return '';
+  const yyyy = d.getFullYear();
+  const mm = String(d.getMonth() + 1).padStart(2, '0');
+  const dd = String(d.getDate()).padStart(2, '0');
+  const hh = String(d.getHours()).padStart(2, '0');
+  const mi = String(d.getMinutes()).padStart(2, '0');
+  return `${yyyy}-${mm}-${dd} ${hh}:${mi}`;
+}
+
+// ===== 시작 =====
+boot();
+</script>
+</body>
+</html>

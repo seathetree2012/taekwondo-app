@@ -1,0 +1,2033 @@
+{
+  "_note": "기본 표준 시퀀스 — Kukkiwon/WT 공식 영상에서 dev 도구로 추출 (2026-05-09)",
+  "_version": 1,
+  "refs": {
+    "태극1장": {
+      "sequence": [
+        {
+          "n": 0,
+          "stance": "나란히서기",
+          "technique": "기본준비자세",
+          "direction": "정면",
+          "kihap": false,
+          "notes": "품새 시작 준비 자세",
+          "timestamp_sec": 87.7
+        },
+        {
+          "n": 1,
+          "stance": "왼앞굽이",
+          "technique": "아래막기",
+          "direction": "좌측",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 90.3
+        },
+        {
+          "n": 2,
+          "stance": "왼앞굽이",
+          "technique": "몸통지르기",
+          "direction": "정면",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 91.9
+        },
+        {
+          "n": 3,
+          "stance": "오른앞굽이",
+          "technique": "아래막기",
+          "direction": "우측",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 93.9
+        },
+        {
+          "n": 4,
+          "stance": "오른앞굽이",
+          "technique": "몸통지르기",
+          "direction": "정면",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 95.4
+        },
+        {
+          "n": 5,
+          "stance": "왼앞서기",
+          "technique": "몸통안막기",
+          "direction": "정면",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 98.2
+        },
+        {
+          "n": 6,
+          "stance": "오른앞굽이",
+          "technique": "몸통지르기",
+          "direction": "정면",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 100.5
+        },
+        {
+          "n": 7,
+          "stance": "오른앞굽이",
+          "technique": "얼굴막기",
+          "direction": "우측",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 102.5
+        },
+        {
+          "n": 8,
+          "stance": "뒷발서기",
+          "technique": "앞차기",
+          "direction": "우측",
+          "kihap": false,
+          "notes": "왼발로 앞차기, 오른앞굽이로 착지 후 다음 동작으로 연결",
+          "timestamp_sec": 104.2
+        },
+        {
+          "n": 9,
+          "stance": "오른앞굽이",
+          "technique": "몸통지르기",
+          "direction": "우측",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 105.0
+        },
+        {
+          "n": 10,
+          "stance": "왼앞굽이",
+          "technique": "얼굴막기",
+          "direction": "좌측",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 107.3
+        },
+        {
+          "n": 11,
+          "stance": "뒷발서기",
+          "technique": "앞차기",
+          "direction": "좌측",
+          "kihap": false,
+          "notes": "오른발로 앞차기, 왼앞굽이로 착지 후 다음 동작으로 연결",
+          "timestamp_sec": 109.0
+        },
+        {
+          "n": 12,
+          "stance": "왼앞굽이",
+          "technique": "몸통지르기",
+          "direction": "좌측",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 109.8
+        },
+        {
+          "n": 13,
+          "stance": "오른앞서기",
+          "technique": "몸통안막기",
+          "direction": "정면",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 112.0
+        },
+        {
+          "n": 14,
+          "stance": "왼앞굽이",
+          "technique": "몸통지르기",
+          "direction": "정면",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 114.0
+        },
+        {
+          "n": 15,
+          "stance": "왼앞굽이",
+          "technique": "아래막기",
+          "direction": "뒤",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 116.0
+        },
+        {
+          "n": 16,
+          "stance": "왼앞굽이",
+          "technique": "몸통지르기",
+          "direction": "뒤",
+          "kihap": true,
+          "notes": "이 동작에서 기합을 넣습니다.",
+          "timestamp_sec": 117.2
+        }
+      ],
+      "total_movements": 16,
+      "summary_note": "태극1장 품새는 기본 준비 자세를 시작으로 총 16개의 동작으로 구성되어 있습니다. 마지막 몸통 지르기에서 기합이 들어갑니다.",
+      "source_url": "https://www.youtube.com/watch?v=WhkjRruCBTo",
+      "extracted_at": "2026-05-08T19:25:53.877736Z"
+    },
+    "태극2장": {
+      "sequence": [
+        {
+          "n": 1,
+          "stance": "오른앞굽이",
+          "technique": "왼아래막기",
+          "direction": "좌측",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 116.2
+        },
+        {
+          "n": 2,
+          "stance": "오른앞굽이",
+          "technique": "오른몸통지르기",
+          "direction": "좌측",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 118.0
+        },
+        {
+          "n": 3,
+          "stance": "왼앞굽이",
+          "technique": "오른아래막기",
+          "direction": "우측",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 119.4
+        },
+        {
+          "n": 4,
+          "stance": "왼앞굽이",
+          "technique": "왼몸통지르기",
+          "direction": "우측",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 120.6
+        },
+        {
+          "n": 5,
+          "stance": "오른앞굽이",
+          "technique": "오른몸통안막기",
+          "direction": "정면",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 121.8
+        },
+        {
+          "n": 6,
+          "stance": "왼앞굽이",
+          "technique": "왼몸통안막기",
+          "direction": "정면",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 123.2
+        },
+        {
+          "n": 7,
+          "stance": "오른앞굽이",
+          "technique": "왼아래막기",
+          "direction": "좌측",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 124.8
+        },
+        {
+          "n": 8,
+          "stance": "오른앞굽이",
+          "technique": "오른앞차기+오른얼굴지르기",
+          "direction": "좌측",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 126.5
+        },
+        {
+          "n": 9,
+          "stance": "왼앞굽이",
+          "technique": "오른아래막기",
+          "direction": "우측",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 129.0
+        },
+        {
+          "n": 10,
+          "stance": "왼앞굽이",
+          "technique": "왼앞차기+왼얼굴지르기",
+          "direction": "우측",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 130.5
+        },
+        {
+          "n": 11,
+          "stance": "오른앞굽이",
+          "technique": "왼얼굴막기",
+          "direction": "정면",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 132.7
+        },
+        {
+          "n": 12,
+          "stance": "왼앞굽이",
+          "technique": "오른얼굴막기",
+          "direction": "정면",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 134.4
+        },
+        {
+          "n": 13,
+          "stance": "오른앞굽이",
+          "technique": "왼아래막기",
+          "direction": "뒤",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 136.5
+        },
+        {
+          "n": 14,
+          "stance": "오른앞굽이",
+          "technique": "오른앞차기+오른몸통지르기",
+          "direction": "뒤",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 138.2
+        },
+        {
+          "n": 15,
+          "stance": "왼앞굽이",
+          "technique": "오른아래막기",
+          "direction": "정면",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 140.4
+        },
+        {
+          "n": 16,
+          "stance": "왼앞굽이",
+          "technique": "왼앞차기+왼몸통지르기",
+          "direction": "정면",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 142.0
+        },
+        {
+          "n": 17,
+          "stance": "오른앞굽이",
+          "technique": "오른몸통안막기",
+          "direction": "좌측",
+          "kihap": true,
+          "notes": "",
+          "timestamp_sec": 146.0
+        }
+      ],
+      "total_movements": 17,
+      "summary_note": "태극 2장의 표준 시연으로, 총 17개의 동작으로 구성되어 있습니다. 각 동작은 앞굽이 서기와 다양한 막기, 지르기, 차기 기술을 연속적으로 보여주며, 마지막 동작에 기합이 포함됩니다.",
+      "source_url": "https://www.youtube.com/watch?v=tGlrUplKHh8",
+      "extracted_at": "2026-05-08T19:25:53.878062Z"
+    },
+    "태극3장": {
+      "sequence": [
+        {
+          "n": 1,
+          "stance": "왼 앞굽이",
+          "technique": "아래막기",
+          "direction": "좌측",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 81.66
+        },
+        {
+          "n": 2,
+          "stance": "오른 앞굽이",
+          "technique": "앞차기 + 몸통 지르기",
+          "direction": "좌측",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 83.0
+        },
+        {
+          "n": 3,
+          "stance": "오른 앞굽이",
+          "technique": "아래막기",
+          "direction": "우측",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 85.1
+        },
+        {
+          "n": 4,
+          "stance": "왼 앞굽이",
+          "technique": "앞차기 + 몸통 지르기",
+          "direction": "우측",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 86.54
+        },
+        {
+          "n": 5,
+          "stance": "왼 앞서기",
+          "technique": "왼 손날 안치기",
+          "direction": "정면",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 88.98
+        },
+        {
+          "n": 6,
+          "stance": "오른 앞서기",
+          "technique": "오른 손날 안치기",
+          "direction": "정면",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 90.4
+        },
+        {
+          "n": 7,
+          "stance": "왼 뒷굽이",
+          "technique": "왼 손날 바깥막기",
+          "direction": "좌측",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 92.48
+        },
+        {
+          "n": 8,
+          "stance": "오른 앞굽이",
+          "technique": "오른 몸통 지르기",
+          "direction": "좌측",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 94.25
+        },
+        {
+          "n": 9,
+          "stance": "오른 뒷굽이",
+          "technique": "오른 손날 바깥막기",
+          "direction": "우측",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 96.56
+        },
+        {
+          "n": 10,
+          "stance": "왼 앞굽이",
+          "technique": "왼 몸통 지르기",
+          "direction": "우측",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 98.3
+        },
+        {
+          "n": 11,
+          "stance": "주춤서기",
+          "technique": "왼 몸통 안막기",
+          "direction": "정면",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 100.1
+        },
+        {
+          "n": 12,
+          "stance": "주춤서기",
+          "technique": "오른 몸통 지르기",
+          "direction": "정면",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 101.5
+        },
+        {
+          "n": 13,
+          "stance": "주춤서기",
+          "technique": "오른 몸통 안막기",
+          "direction": "정면",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 102.92
+        },
+        {
+          "n": 14,
+          "stance": "주춤서기",
+          "technique": "왼 몸통 지르기",
+          "direction": "정면",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 104.2
+        },
+        {
+          "n": 15,
+          "stance": "왼 앞굽이",
+          "technique": "아래막기",
+          "direction": "뒤",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 106.06
+        },
+        {
+          "n": 16,
+          "stance": "오른 앞굽이",
+          "technique": "앞차기 + 몸통 지르기",
+          "direction": "뒤",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 107.46
+        },
+        {
+          "n": 17,
+          "stance": "오른 앞굽이",
+          "technique": "아래막기",
+          "direction": "정면",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 109.07
+        },
+        {
+          "n": 18,
+          "stance": "왼 앞굽이",
+          "technique": "앞차기 + 몸통 지르기",
+          "direction": "정면",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 110.56
+        },
+        {
+          "n": 19,
+          "stance": "왼 앞굽이",
+          "technique": "몸통 두번 지르기",
+          "direction": "좌45도",
+          "kihap": true,
+          "notes": "기합 ('Ha!')",
+          "timestamp_sec": 112.55
+        },
+        {
+          "n": 20,
+          "stance": "오른 앞굽이",
+          "technique": "몸통 두번 지르기",
+          "direction": "우45도",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 115.7
+        },
+        {
+          "n": 21,
+          "stance": "왼 앞굽이",
+          "technique": "아래막기",
+          "direction": "정면",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 118.2
+        },
+        {
+          "n": 22,
+          "stance": "오른 앞굽이",
+          "technique": "몸통 지르기",
+          "direction": "정면",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 119.08
+        },
+        {
+          "n": 23,
+          "stance": "왼 앞굽이",
+          "technique": "몸통 지르기",
+          "direction": "정면",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 120.06
+        },
+        {
+          "n": 24,
+          "stance": "주춤서기",
+          "technique": "왼 몸통 바깥막기",
+          "direction": "좌측",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 121.0
+        },
+        {
+          "n": 25,
+          "stance": "주춤서기",
+          "technique": "오른 몸통 바깥막기",
+          "direction": "우측",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 122.04
+        }
+      ],
+      "total_movements": 25,
+      "summary_note": "태극3장의 표준 시연으로, 총 25개의 동작을 추출했습니다. 19번째 동작에서 기합이 있습니다.",
+      "source_url": "https://www.youtube.com/watch?v=ksSqKt0UkWo",
+      "extracted_at": "2026-05-08T19:25:53.878369Z"
+    },
+    "태극4장": {
+      "sequence": [
+        {
+          "n": 1,
+          "stance": "왼앞굽이",
+          "technique": "왼 손날 거들어 막기",
+          "direction": "좌측",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 12.17
+        },
+        {
+          "n": 2,
+          "stance": "오른앞굽이",
+          "technique": "오른 편손끝 세워 찌르기",
+          "direction": "정면",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 12.194
+        },
+        {
+          "n": 3,
+          "stance": "오른앞굽이",
+          "technique": "오른 손날 거들어 막기",
+          "direction": "우측",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 12.21
+        },
+        {
+          "n": 4,
+          "stance": "왼앞굽이",
+          "technique": "왼 편손끝 세워 찌르기",
+          "direction": "정면",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 12.232
+        },
+        {
+          "n": 5,
+          "stance": "왼 외발서기",
+          "technique": "왼 옆차기",
+          "direction": "좌측",
+          "kihap": false,
+          "notes": "외발서기 후 차기",
+          "timestamp_sec": 12.25
+        },
+        {
+          "n": 6,
+          "stance": "오른앞굽이",
+          "technique": "오른 몸통 지르기",
+          "direction": "정면",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 12.265
+        },
+        {
+          "n": 7,
+          "stance": "오른 외발서기",
+          "technique": "오른 옆차기",
+          "direction": "우측",
+          "kihap": false,
+          "notes": "외발서기 후 차기",
+          "timestamp_sec": 12.277
+        },
+        {
+          "n": 8,
+          "stance": "왼앞굽이",
+          "technique": "왼 몸통 지르기",
+          "direction": "정면",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 12.29
+        },
+        {
+          "n": 9,
+          "stance": "왼앞굽이",
+          "technique": "왼 몸통 바깥 막기",
+          "direction": "좌측",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 12.302
+        },
+        {
+          "n": 10,
+          "stance": "오른앞굽이",
+          "technique": "오른 앞차기",
+          "direction": "정면",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 12.32
+        },
+        {
+          "n": 11,
+          "stance": "오른앞굽이",
+          "technique": "오른 몸통 안막기",
+          "direction": "정면",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 12.33
+        },
+        {
+          "n": 12,
+          "stance": "오른앞굽이",
+          "technique": "오른 몸통 바깥 막기",
+          "direction": "우측",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 12.345
+        },
+        {
+          "n": 13,
+          "stance": "왼앞굽이",
+          "technique": "왼 앞차기",
+          "direction": "정면",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 12.364
+        },
+        {
+          "n": 14,
+          "stance": "왼앞굽이",
+          "technique": "왼 몸통 안막기",
+          "direction": "정면",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 12.375
+        },
+        {
+          "n": 15,
+          "stance": "오른앞굽이",
+          "technique": "오른 제비품 안치기",
+          "direction": "뒤",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 12.39
+        },
+        {
+          "n": 16,
+          "stance": "오른앞굽이",
+          "technique": "오른 앞차기",
+          "direction": "뒤",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 12.41
+        },
+        {
+          "n": 17,
+          "stance": "오른앞굽이",
+          "technique": "오른 등주먹 앞치기",
+          "direction": "뒤",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 12.42
+        },
+        {
+          "n": 18,
+          "stance": "왼앞굽이",
+          "technique": "왼 제비품 안치기",
+          "direction": "정면",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 12.44
+        },
+        {
+          "n": 19,
+          "stance": "왼앞굽이",
+          "technique": "왼 앞차기",
+          "direction": "정면",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 12.459
+        },
+        {
+          "n": 20,
+          "stance": "왼앞굽이",
+          "technique": "왼 등주먹 앞치기",
+          "direction": "정면",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 12.47
+        },
+        {
+          "n": 21,
+          "stance": "왼앞굽이",
+          "technique": "왼 몸통 안막기",
+          "direction": "좌측",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 12.48
+        },
+        {
+          "n": 22,
+          "stance": "오른앞굽이",
+          "technique": "오른 몸통 두번 지르기",
+          "direction": "정면",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 12.5
+        },
+        {
+          "n": 23,
+          "stance": "오른앞굽이",
+          "technique": "오른 몸통 안막기",
+          "direction": "우측",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 12.515
+        },
+        {
+          "n": 24,
+          "stance": "왼앞굽이",
+          "technique": "왼 몸통 두번 지르기",
+          "direction": "정면",
+          "kihap": true,
+          "notes": "",
+          "timestamp_sec": 12.53
+        }
+      ],
+      "total_movements": 24,
+      "summary_note": "태극4장 품새의 모든 동작을 영상 시연에 따라 정확히 추출하였습니다.",
+      "source_url": "https://www.youtube.com/watch?v=Lt917gacJho",
+      "extracted_at": "2026-05-08T19:25:53.878678Z"
+    },
+    "태극5장": {
+      "sequence": [
+        {
+          "n": 1,
+          "stance": "왼앞굽이",
+          "technique": "아래막기",
+          "direction": "좌측",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 81.73
+        },
+        {
+          "n": 2,
+          "stance": "오른앞굽이",
+          "technique": "메주먹 내려치기",
+          "direction": "좌측",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 83.7
+        },
+        {
+          "n": 3,
+          "stance": "오른앞굽이",
+          "technique": "아래막기",
+          "direction": "우측",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 85.68
+        },
+        {
+          "n": 4,
+          "stance": "왼앞굽이",
+          "technique": "메주먹 내려치기",
+          "direction": "우측",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 87.7
+        },
+        {
+          "n": 5,
+          "stance": "오른앞서기",
+          "technique": "왼 몸통 안막기",
+          "direction": "정면",
+          "kihap": false,
+          "notes": "오른발을 내딛으며 왼 몸통 안막기",
+          "timestamp_sec": 88.89
+        },
+        {
+          "n": 6,
+          "stance": "오른 앞서기",
+          "technique": "오른 앞차기",
+          "direction": "정면",
+          "kihap": false,
+          "notes": "왼 몸통 안막기 후 곧바로 오른 앞차기",
+          "timestamp_sec": 89.84
+        },
+        {
+          "n": 7,
+          "stance": "오른앞굽이",
+          "technique": "등주먹 앞치기",
+          "direction": "정면",
+          "kihap": false,
+          "notes": "오른 앞차기 후 곧바로 오른 앞굽이 등주먹 앞치기",
+          "timestamp_sec": 90.4
+        },
+        {
+          "n": 8,
+          "stance": "오른앞굽이",
+          "technique": "왼 몸통 안막기",
+          "direction": "정면",
+          "kihap": false,
+          "notes": "오른 등주먹 앞치기 후 같은 자세에서 왼 몸통 안막기",
+          "timestamp_sec": 91.06
+        },
+        {
+          "n": 9,
+          "stance": "왼앞서기",
+          "technique": "오른 몸통 안막기",
+          "direction": "정면",
+          "kihap": false,
+          "notes": "왼발을 내딛으며 오른 몸통 안막기",
+          "timestamp_sec": 91.98
+        },
+        {
+          "n": 10,
+          "stance": "왼 앞서기",
+          "technique": "왼 앞차기",
+          "direction": "정면",
+          "kihap": false,
+          "notes": "오른 몸통 안막기 후 곧바로 왼 앞차기",
+          "timestamp_sec": 92.96
+        },
+        {
+          "n": 11,
+          "stance": "왼앞굽이",
+          "technique": "등주먹 앞치기",
+          "direction": "정면",
+          "kihap": false,
+          "notes": "왼 앞차기 후 곧바로 왼 앞굽이 등주먹 앞치기",
+          "timestamp_sec": 93.44
+        },
+        {
+          "n": 12,
+          "stance": "왼앞굽이",
+          "technique": "오른 몸통 안막기",
+          "direction": "정면",
+          "kihap": false,
+          "notes": "왼 등주먹 앞치기 후 같은 자세에서 오른 몸통 안막기",
+          "timestamp_sec": 94.02
+        },
+        {
+          "n": 13,
+          "stance": "왼앞굽이",
+          "technique": "손날 바깥막기",
+          "direction": "좌45도",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 95.4
+        },
+        {
+          "n": 14,
+          "stance": "오른뒷굽이",
+          "technique": "팔꿈치 돌려치기",
+          "direction": "좌45도",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 97.4
+        },
+        {
+          "n": 15,
+          "stance": "오른앞굽이",
+          "technique": "손날 바깥막기",
+          "direction": "우45도",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 98.8
+        },
+        {
+          "n": 16,
+          "stance": "왼뒷굽이",
+          "technique": "팔꿈치 돌려치기",
+          "direction": "우45도",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 100.76
+        },
+        {
+          "n": 17,
+          "stance": "왼앞굽이",
+          "technique": "아래막기",
+          "direction": "뒤",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 102.2
+        },
+        {
+          "n": 18,
+          "stance": "왼 앞굽이",
+          "technique": "오른 앞차기",
+          "direction": "뒤",
+          "kihap": false,
+          "notes": "왼 앞굽이 아래막기 후 곧바로 오른 앞차기",
+          "timestamp_sec": 103.0
+        },
+        {
+          "n": 19,
+          "stance": "오른앞굽이",
+          "technique": "아래막기",
+          "direction": "뒤",
+          "kihap": false,
+          "notes": "오른 앞차기 후 곧바로 오른 앞굽이 아래막기",
+          "timestamp_sec": 103.6
+        },
+        {
+          "n": 20,
+          "stance": "왼앞굽이",
+          "technique": "몸통 안막기",
+          "direction": "뒤",
+          "kihap": false,
+          "notes": "오른 아래막기 후 왼 앞굽이 몸통 안막기",
+          "timestamp_sec": 104.75
+        },
+        {
+          "n": 21,
+          "stance": "왼앞굽이",
+          "technique": "얼굴막기",
+          "direction": "좌측",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 106.0
+        },
+        {
+          "n": 22,
+          "stance": "왼 앞굽이",
+          "technique": "오른 옆차기",
+          "direction": "좌측",
+          "kihap": false,
+          "notes": "왼 앞굽이 얼굴막기 후 곧바로 오른 옆차기",
+          "timestamp_sec": 107.0
+        },
+        {
+          "n": 23,
+          "stance": "오른앞굽이",
+          "technique": "팔꿈치 표적치기",
+          "direction": "좌측",
+          "kihap": true,
+          "notes": "오른 옆차기 후 곧바로 오른 앞굽이 팔꿈치 표적치기",
+          "timestamp_sec": 107.88
+        },
+        {
+          "n": 24,
+          "stance": "오른앞굽이",
+          "technique": "얼굴막기",
+          "direction": "우측",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 109.0
+        },
+        {
+          "n": 25,
+          "stance": "오른 앞굽이",
+          "technique": "왼 옆차기",
+          "direction": "우측",
+          "kihap": false,
+          "notes": "오른 앞굽이 얼굴막기 후 곧바로 왼 옆차기",
+          "timestamp_sec": 110.0
+        },
+        {
+          "n": 26,
+          "stance": "왼앞굽이",
+          "technique": "팔꿈치 표적치기",
+          "direction": "우측",
+          "kihap": false,
+          "notes": "왼 옆차기 후 곧바로 왼 앞굽이 팔꿈치 표적치기",
+          "timestamp_sec": 110.88
+        },
+        {
+          "n": 27,
+          "stance": "오른앞굽이",
+          "technique": "아래막기",
+          "direction": "정면",
+          "kihap": false,
+          "notes": "앞에서 뒤로 돌면서 오른 앞굽이 아래막기",
+          "timestamp_sec": 112.2
+        },
+        {
+          "n": 28,
+          "stance": "왼앞굽이",
+          "technique": "아래막기",
+          "direction": "정면",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 113.0
+        },
+        {
+          "n": 29,
+          "stance": "왼 앞굽이",
+          "technique": "오른 앞차기",
+          "direction": "정면",
+          "kihap": false,
+          "notes": "왼 앞굽이 아래막기 후 곧바로 오른 앞차기",
+          "timestamp_sec": 114.0
+        },
+        {
+          "n": 30,
+          "stance": "오른앞굽이",
+          "technique": "등주먹 앞치기",
+          "direction": "정면",
+          "kihap": false,
+          "notes": "오른 앞차기 후 곧바로 오른 앞굽이 등주먹 앞치기",
+          "timestamp_sec": 114.68
+        },
+        {
+          "n": 31,
+          "stance": "오른앞굽이",
+          "technique": "왼 몸통 안막기",
+          "direction": "정면",
+          "kihap": false,
+          "notes": "오른 등주먹 앞치기 후 같은 자세에서 왼 몸통 안막기",
+          "timestamp_sec": 115.2
+        },
+        {
+          "n": 32,
+          "stance": "오른 앞굽이",
+          "technique": "왼 앞차기",
+          "direction": "정면",
+          "kihap": false,
+          "notes": "왼 몸통 안막기 후 곧바로 왼 앞차기",
+          "timestamp_sec": 116.0
+        },
+        {
+          "n": 33,
+          "stance": "왼앞굽이",
+          "technique": "등주먹 앞치기",
+          "direction": "정면",
+          "kihap": false,
+          "notes": "왼 앞차기 후 곧바로 왼 앞굽이 등주먹 앞치기",
+          "timestamp_sec": 116.68
+        },
+        {
+          "n": 34,
+          "stance": "왼앞굽이",
+          "technique": "오른 몸통 안막기",
+          "direction": "정면",
+          "kihap": true,
+          "notes": "왼 등주먹 앞치기 후 같은 자세에서 오른 몸통 안막기",
+          "timestamp_sec": 117.2
+        },
+        {
+          "n": 35,
+          "stance": "나란히 서기",
+          "technique": "바로",
+          "direction": "정면",
+          "kihap": false,
+          "notes": "품새 마치기",
+          "timestamp_sec": 118.6
+        }
+      ],
+      "total_movements": 35,
+      "summary_note": "태권도 품새 '태극5장'의 표준 시연 영상에서 35개 동작을 추출하였습니다. 각 동작은 스탠스, 기술, 방향, 기합 여부, 시작 시간 및 특이사항을 포함합니다.",
+      "source_url": "https://www.youtube.com/watch?v=VdqNEAHWCBM",
+      "extracted_at": "2026-05-08T19:25:53.879042Z"
+    },
+    "태극6장": {
+      "sequence": [
+        {
+          "n": 1,
+          "stance": "왼 앞굽이",
+          "technique": "왼 아래막기",
+          "direction": "좌측",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 66.9
+        },
+        {
+          "n": 2,
+          "stance": "왼 앞굽이",
+          "technique": "오른 앞차고 왼 몸통 바깥막기",
+          "direction": "좌측",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 68.0
+        },
+        {
+          "n": 3,
+          "stance": "오른 앞굽이",
+          "technique": "오른 아래막기",
+          "direction": "우측",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 70.0
+        },
+        {
+          "n": 4,
+          "stance": "오른 앞굽이",
+          "technique": "왼 앞차고 오른 몸통 바깥막기",
+          "direction": "우측",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 71.15
+        },
+        {
+          "n": 5,
+          "stance": "왼 앞굽이",
+          "technique": "왼 손날 얼굴 비틀어막기",
+          "direction": "정면",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 73.2
+        },
+        {
+          "n": 6,
+          "stance": "오른 앞굽이",
+          "technique": "오른 돌려차고 오른 몸통 안막기",
+          "direction": "정면",
+          "kihap": true,
+          "notes": "기합은 74.550초에 나옴",
+          "timestamp_sec": 74.15
+        },
+        {
+          "n": 7,
+          "stance": "왼 앞굽이",
+          "technique": "왼 몸통 안막기",
+          "direction": "뒤",
+          "kihap": false,
+          "notes": "180도 회전",
+          "timestamp_sec": 76.8
+        },
+        {
+          "n": 8,
+          "stance": "오른 앞굽이",
+          "technique": "오른 몸통 바깥막기",
+          "direction": "뒤",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 77.75
+        },
+        {
+          "n": 9,
+          "stance": "오른 앞굽이",
+          "technique": "왼 앞차고 오른 몸통 지르기",
+          "direction": "뒤",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 78.7
+        },
+        {
+          "n": 10,
+          "stance": "왼 앞굽이",
+          "technique": "왼 아래막기",
+          "direction": "좌45도",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 79.75
+        },
+        {
+          "n": 11,
+          "stance": "오른 앞굽이",
+          "technique": "오른 몸통지르기",
+          "direction": "좌45도",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 80.9
+        },
+        {
+          "n": 12,
+          "stance": "오른 앞굽이",
+          "technique": "오른 아래막기",
+          "direction": "우45도",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 82.05
+        },
+        {
+          "n": 13,
+          "stance": "왼 앞굽이",
+          "technique": "왼 몸통지르기",
+          "direction": "우45도",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 83.2
+        },
+        {
+          "n": 14,
+          "stance": "왼 앞굽이",
+          "technique": "왼 아래 해쳐막기",
+          "direction": "좌측",
+          "kihap": false,
+          "notes": "90도 회전",
+          "timestamp_sec": 84.3
+        },
+        {
+          "n": 15,
+          "stance": "오른 앞굽이",
+          "technique": "오른 아래 해쳐막기",
+          "direction": "우측",
+          "kihap": false,
+          "notes": "180도 회전",
+          "timestamp_sec": 85.45
+        },
+        {
+          "n": 16,
+          "stance": "왼 앞굽이",
+          "technique": "왼 바탕손 몸통 안막기",
+          "direction": "정면",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 86.6
+        },
+        {
+          "n": 17,
+          "stance": "오른 앞굽이",
+          "technique": "오른 몸통지르기",
+          "direction": "정면",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 87.65
+        }
+      ],
+      "total_movements": 17,
+      "summary_note": "태극6장 품새의 표준 시연 영상에서 17개의 동작을 추출했습니다. 일부 동작은 일반적인 태극6장 품새의 해석과 미세한 차이가 있을 수 있습니다. 예를 들어, 6번 동작의 경우 돌려차기 후 몸통지르기 대신 몸통 안막기가 시연되었습니다. 또한, 7번과 8번 동작은 몸통 안막기, 몸통 바깥막기로 시연되었으며 9번 동작에는 앞차기가 포함되었습니다.",
+      "source_url": "https://www.youtube.com/watch?v=jcBwWo4wN7c",
+      "extracted_at": "2026-05-08T19:25:53.879309Z"
+    },
+    "태극7장": {
+      "sequence": [
+        {
+          "n": 1,
+          "stance": "기본준비서기",
+          "technique": "준비",
+          "direction": "정면",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 111.3
+        },
+        {
+          "n": 2,
+          "stance": "왼범서기",
+          "technique": "바탕손 몸통 안막기",
+          "direction": "좌측",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 116.3
+        },
+        {
+          "n": 3,
+          "stance": "없음",
+          "technique": "오른발 앞차기",
+          "direction": "정면",
+          "kihap": false,
+          "notes": "제자리로 물러 디딤",
+          "timestamp_sec": 120.0
+        },
+        {
+          "n": 4,
+          "stance": "왼범서기",
+          "technique": "몸통 막기",
+          "direction": "좌측",
+          "kihap": false,
+          "notes": "앞차기 후 물러 디디면서 동시 동작",
+          "timestamp_sec": 122.0
+        },
+        {
+          "n": 5,
+          "stance": "오른범서기",
+          "technique": "바탕손 몸통 안막기",
+          "direction": "우측",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 137.0
+        },
+        {
+          "n": 6,
+          "stance": "없음",
+          "technique": "왼발 앞차기",
+          "direction": "정면",
+          "kihap": false,
+          "notes": "제자리로 물러 디딤",
+          "timestamp_sec": 141.0
+        },
+        {
+          "n": 7,
+          "stance": "오른범서기",
+          "technique": "몸통 막기",
+          "direction": "우측",
+          "kihap": false,
+          "notes": "앞차기 후 물러 디디면서 동시 동작",
+          "timestamp_sec": 144.0
+        },
+        {
+          "n": 8,
+          "stance": "오른뒷굽이",
+          "technique": "손날 아래막기",
+          "direction": "정면",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 152.0
+        },
+        {
+          "n": 9,
+          "stance": "왼뒷굽이",
+          "technique": "손날 아래막기",
+          "direction": "정면",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 157.0
+        },
+        {
+          "n": 10,
+          "stance": "왼범서기",
+          "technique": "바탕손 몸통 거들어 안막기",
+          "direction": "좌측",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 205.0
+        },
+        {
+          "n": 11,
+          "stance": "왼범서기",
+          "technique": "등주먹 얼굴 앞치기",
+          "direction": "정면",
+          "kihap": false,
+          "notes": "허리를 돌리는 반작용 탄력 이용",
+          "timestamp_sec": 218.0
+        },
+        {
+          "n": 12,
+          "stance": "오른범서기",
+          "technique": "바탕손 몸통 거들어 안막기",
+          "direction": "우측",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 229.0
+        },
+        {
+          "n": 13,
+          "stance": "오른범서기",
+          "technique": "등주먹 얼굴 앞치기",
+          "direction": "정면",
+          "kihap": false,
+          "notes": "허리를 돌리는 반작용 탄력 이용",
+          "timestamp_sec": 242.0
+        },
+        {
+          "n": 14,
+          "stance": "모아서기",
+          "technique": "두주먹 감싸 쥐기",
+          "direction": "정면",
+          "kihap": false,
+          "notes": "인중 높이로 5초 가량 천천히",
+          "timestamp_sec": 250.0
+        },
+        {
+          "n": 15,
+          "stance": "왼앞굽이",
+          "technique": "반대 가위막기",
+          "direction": "정면",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 308.0
+        },
+        {
+          "n": 16,
+          "stance": "왼앞굽이",
+          "technique": "가위막기",
+          "direction": "정면",
+          "kihap": false,
+          "notes": "반대 가위막기 후 바로 이어서",
+          "timestamp_sec": 315.0
+        },
+        {
+          "n": 17,
+          "stance": "오른앞굽이",
+          "technique": "반대 가위막기",
+          "direction": "정면",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 320.0
+        },
+        {
+          "n": 18,
+          "stance": "오른앞굽이",
+          "technique": "가위막기",
+          "direction": "정면",
+          "kihap": false,
+          "notes": "반대 가위막기 후 바로 이어서",
+          "timestamp_sec": 326.0
+        },
+        {
+          "n": 19,
+          "stance": "왼앞굽이",
+          "technique": "몸통 헤쳐막기",
+          "direction": "좌45도",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 338.0
+        },
+        {
+          "n": 20,
+          "stance": "없음",
+          "technique": "오른발 무릎치기",
+          "direction": "좌45도",
+          "kihap": false,
+          "notes": "상대 머리를 잡아 아래로 끌어당기면서 동시 동작",
+          "timestamp_sec": 345.0
+        },
+        {
+          "n": 21,
+          "stance": "왼뒤꼬아서기",
+          "technique": "두주먹 젖혀지르기",
+          "direction": "좌45도",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 356.0
+        },
+        {
+          "n": 22,
+          "stance": "오른앞굽이",
+          "technique": "엇걸어 아래막기",
+          "direction": "뒤",
+          "kihap": false,
+          "notes": "왼발을 뒤로 물러 디딤",
+          "timestamp_sec": 358.0
+        },
+        {
+          "n": 23,
+          "stance": "오른앞굽이",
+          "technique": "몸통 헤쳐막기",
+          "direction": "우45도",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 414.0
+        },
+        {
+          "n": 24,
+          "stance": "없음",
+          "technique": "왼발 무릎치기",
+          "direction": "우45도",
+          "kihap": false,
+          "notes": "상대 머리를 잡아 아래로 끌어당기면서 동시 동작",
+          "timestamp_sec": 420.0
+        },
+        {
+          "n": 25,
+          "stance": "오른뒤꼬아서기",
+          "technique": "두주먹 젖혀지르기",
+          "direction": "우45도",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 427.0
+        },
+        {
+          "n": 26,
+          "stance": "왼앞굽이",
+          "technique": "엇걸어 아래막기",
+          "direction": "정면",
+          "kihap": false,
+          "notes": "오른발을 뒤로 물러 디딤",
+          "timestamp_sec": 429.0
+        },
+        {
+          "n": 27,
+          "stance": "왼앞서기",
+          "technique": "등주먹 바깥치기",
+          "direction": "좌측",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 438.0
+        },
+        {
+          "n": 28,
+          "stance": "없음",
+          "technique": "오른발 표적 차기",
+          "direction": "우측",
+          "kihap": false,
+          "notes": "발날등으로 얼굴 높이로 참",
+          "timestamp_sec": 446.0
+        },
+        {
+          "n": 29,
+          "stance": "주춤서기",
+          "technique": "오른 팔굽 표적치기",
+          "direction": "우측",
+          "kihap": false,
+          "notes": "팔굽의 위치를 명치 높이로 함",
+          "timestamp_sec": 448.0
+        },
+        {
+          "n": 30,
+          "stance": "오른앞서기",
+          "technique": "등주먹 얼굴 바깥치기",
+          "direction": "정면",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 502.0
+        },
+        {
+          "n": 31,
+          "stance": "없음",
+          "technique": "왼발 표적 차기",
+          "direction": "좌측",
+          "kihap": false,
+          "notes": "발날등으로 얼굴 높이로 참",
+          "timestamp_sec": 507.0
+        },
+        {
+          "n": 32,
+          "stance": "주춤서기",
+          "technique": "왼 팔굽 표적치기",
+          "direction": "좌측",
+          "kihap": false,
+          "notes": "팔굽의 위치를 명치 높이로 함",
+          "timestamp_sec": 509.0
+        },
+        {
+          "n": 33,
+          "stance": "주춤서기",
+          "technique": "왼 한손날 몸통 옆막기",
+          "direction": "정면",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 517.0
+        },
+        {
+          "n": 34,
+          "stance": "주춤서기",
+          "technique": "몸통 옆지르기",
+          "direction": "우측",
+          "kihap": true,
+          "notes": "왼손으로 상대를 잡아 끌면서 동시 동작",
+          "timestamp_sec": 523.0
+        },
+        {
+          "n": 35,
+          "stance": "기본준비서기",
+          "technique": "바로",
+          "direction": "정면",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 531.0
+        }
+      ],
+      "total_movements": 35,
+      "summary_note": "태극 7장 품새의 모든 동작을 단계별로 추출하였습니다.",
+      "source_url": "https://www.youtube.com/watch?v=RI1bX0gUJpo",
+      "extracted_at": "2026-05-08T19:25:53.879581Z"
+    },
+    "태극8장": {
+      "sequence": [
+        {
+          "n": 1,
+          "stance": "왼앞굽이",
+          "technique": "거들어 바깥막기",
+          "direction": "좌측",
+          "kihap": false,
+          "notes": ""
+        },
+        {
+          "n": 2,
+          "stance": "오른앞굽이",
+          "technique": "몸통 지르기",
+          "direction": "좌측",
+          "kihap": false,
+          "notes": ""
+        },
+        {
+          "n": 3,
+          "stance": "공중",
+          "technique": "두발당성 앞차기",
+          "direction": "정면",
+          "kihap": true,
+          "notes": "오른발, 왼발 연속 앞차기"
+        },
+        {
+          "n": 4,
+          "stance": "왼앞굽이",
+          "technique": "안막기 & 몸통 지르기",
+          "direction": "정면",
+          "kihap": false,
+          "notes": "착지 후 왼 안막기, 오른 몸통 지르기"
+        },
+        {
+          "n": 5,
+          "stance": "오른앞굽이",
+          "technique": "몸통 지르기",
+          "direction": "정면",
+          "kihap": false,
+          "notes": ""
+        },
+        {
+          "n": 6,
+          "stance": "오른앞굽이",
+          "technique": "외산틀막기",
+          "direction": "뒤",
+          "kihap": false,
+          "notes": ""
+        },
+        {
+          "n": 7,
+          "stance": "왼앞굽이",
+          "technique": "당겨지르기",
+          "direction": "뒤",
+          "kihap": false,
+          "notes": ""
+        },
+        {
+          "n": 8,
+          "stance": "오른앞굽이",
+          "technique": "외산틀막기",
+          "direction": "뒤",
+          "kihap": false,
+          "notes": ""
+        },
+        {
+          "n": 9,
+          "stance": "왼앞굽이",
+          "technique": "당겨지르기",
+          "direction": "뒤",
+          "kihap": false,
+          "notes": ""
+        },
+        {
+          "n": 10,
+          "stance": "왼앞굽이",
+          "technique": "손날 거들어 막기",
+          "direction": "우측",
+          "kihap": false,
+          "notes": ""
+        },
+        {
+          "n": 11,
+          "stance": "외발서기",
+          "technique": "오른 앞차기",
+          "direction": "우측",
+          "kihap": false,
+          "notes": ""
+        },
+        {
+          "n": 12,
+          "stance": "왼앞굽이",
+          "technique": "몸통 지르기",
+          "direction": "우측",
+          "kihap": false,
+          "notes": "앞차기 후 왼 앞굽이 지르기"
+        },
+        {
+          "n": 13,
+          "stance": "왼앞굽이",
+          "technique": "바탕손 안막기",
+          "direction": "우측",
+          "kihap": false,
+          "notes": ""
+        },
+        {
+          "n": 14,
+          "stance": "오른앞굽이",
+          "technique": "손날 거들어 막기",
+          "direction": "좌측",
+          "kihap": false,
+          "notes": ""
+        },
+        {
+          "n": 15,
+          "stance": "외발서기",
+          "technique": "왼 앞차기",
+          "direction": "좌측",
+          "kihap": false,
+          "notes": ""
+        },
+        {
+          "n": 16,
+          "stance": "오른앞굽이",
+          "technique": "몸통 지르기",
+          "direction": "좌측",
+          "kihap": false,
+          "notes": "앞차기 후 오른 앞굽이 지르기"
+        },
+        {
+          "n": 17,
+          "stance": "오른앞굽이",
+          "technique": "바탕손 안막기",
+          "direction": "좌측",
+          "kihap": false,
+          "notes": ""
+        },
+        {
+          "n": 18,
+          "stance": "왼앞굽이",
+          "technique": "거들어 아래막기",
+          "direction": "정면",
+          "kihap": false,
+          "notes": ""
+        },
+        {
+          "n": 19,
+          "stance": "외발서기",
+          "technique": "왼 앞차기",
+          "direction": "정면",
+          "kihap": false,
+          "notes": ""
+        },
+        {
+          "n": 20,
+          "stance": "공중",
+          "technique": "오른 뒤후려차기",
+          "direction": "뒤",
+          "kihap": true,
+          "notes": "왼 앞차기 후 공중에서 몸을 돌려 오른 뒤후려차기"
+        },
+        {
+          "n": 21,
+          "stance": "왼앞굽이",
+          "technique": "손날 바깥막기",
+          "direction": "뒤",
+          "kihap": false,
+          "notes": ""
+        },
+        {
+          "n": 22,
+          "stance": "오른앞굽이",
+          "technique": "팔굽치 돌려치기",
+          "direction": "뒤",
+          "kihap": false,
+          "notes": ""
+        },
+        {
+          "n": 23,
+          "stance": "오른앞굽이",
+          "technique": "등주먹 앞치기",
+          "direction": "뒤",
+          "kihap": false,
+          "notes": "팔굽치 돌려치기 후 등주먹 앞치기"
+        },
+        {
+          "n": 24,
+          "stance": "왼앞굽이",
+          "technique": "몸통 지르기",
+          "direction": "뒤",
+          "kihap": false,
+          "notes": ""
+        },
+        {
+          "n": 25,
+          "stance": "오른앞굽이",
+          "technique": "손날 바깥막기",
+          "direction": "뒤",
+          "kihap": false,
+          "notes": ""
+        },
+        {
+          "n": 26,
+          "stance": "왼앞굽이",
+          "technique": "팔굽치 돌려치기",
+          "direction": "뒤",
+          "kihap": false,
+          "notes": ""
+        },
+        {
+          "n": 27,
+          "stance": "왼앞굽이",
+          "technique": "등주먹 앞치기",
+          "direction": "뒤",
+          "kihap": false,
+          "notes": "팔굽치 돌려치기 후 등주먹 앞치기"
+        },
+        {
+          "n": 28,
+          "stance": "오른앞굽이",
+          "technique": "몸통 지르기",
+          "direction": "뒤",
+          "kihap": false,
+          "notes": ""
+        },
+        {
+          "n": 29,
+          "stance": "나란히 서기",
+          "technique": "바라",
+          "direction": "정면",
+          "kihap": false,
+          "notes": "왼발을 당겨 나란히 서기 자세로 마무리"
+        }
+      ],
+      "total_movements": 29,
+      "summary_note": "영상은 태극8장의 표준 시연이며, 총 29개의 동작을 포함하고 있습니다. 일부 복합 동작(예: 이단옆차기)은 여러 개의 개별 동작으로 세분화되어 추출되었습니다.",
+      "source_url": "https://www.youtube.com/watch?v=Gr_Je2ZkgkI",
+      "extracted_at": "2026-05-08T19:25:53.879825Z"
+    },
+    "고려": {
+      "sequence": [
+        {
+          "n": 1,
+          "stance": "모아서기",
+          "technique": "통밀기 준비",
+          "direction": "정면",
+          "kihap": false,
+          "notes": "시작 준비 자세"
+        },
+        {
+          "n": 2,
+          "stance": "왼 앞굽이",
+          "technique": "왼 손날 거들어 막기",
+          "direction": "좌측",
+          "kihap": false,
+          "notes": ""
+        },
+        {
+          "n": 3,
+          "stance": "학다리서기",
+          "technique": "오른 거들어 옆차기",
+          "direction": "좌측",
+          "kihap": false,
+          "notes": ""
+        },
+        {
+          "n": 4,
+          "stance": "오른 앞굽이",
+          "technique": "오른 손날 바깥막기 + 왼 몸통 지르기",
+          "direction": "좌측",
+          "kihap": false,
+          "notes": ""
+        },
+        {
+          "n": 5,
+          "stance": "오른 앞굽이",
+          "technique": "오른 몸통 안막기",
+          "direction": "좌측",
+          "kihap": false,
+          "notes": ""
+        },
+        {
+          "n": 6,
+          "stance": "학다리서기",
+          "technique": "왼 거들어 옆차기",
+          "direction": "우측",
+          "kihap": false,
+          "notes": ""
+        },
+        {
+          "n": 7,
+          "stance": "왼 앞굽이",
+          "technique": "왼 손날 바깥막기 + 오른 몸통 지르기",
+          "direction": "우측",
+          "kihap": false,
+          "notes": ""
+        },
+        {
+          "n": 8,
+          "stance": "왼 앞굽이",
+          "technique": "왼 몸통 안막기",
+          "direction": "우측",
+          "kihap": false,
+          "notes": ""
+        },
+        {
+          "n": 9,
+          "stance": "오른 앞굽이",
+          "technique": "오른 앞차기, 오른 손날 아래막기, 왼 아금손 앞치기",
+          "direction": "정면",
+          "kihap": false,
+          "notes": ""
+        },
+        {
+          "n": 10,
+          "stance": "왼 앞굽이",
+          "technique": "왼 앞차기, 왼 손날 아래막기, 오른 아금손 앞치기",
+          "direction": "정면",
+          "kihap": true,
+          "notes": ""
+        },
+        {
+          "n": 11,
+          "stance": "오른 앞굽이",
+          "technique": "왼 (무릎) 눌러 꺾기",
+          "direction": "정면",
+          "kihap": false,
+          "notes": ""
+        },
+        {
+          "n": 12,
+          "stance": "왼 앞굽이",
+          "technique": "오른 (무릎) 눌러 꺾기",
+          "direction": "정면",
+          "kihap": false,
+          "notes": ""
+        },
+        {
+          "n": 13,
+          "stance": "왼 주춤서기",
+          "technique": "왼 손날 옆막기",
+          "direction": "좌측",
+          "kihap": false,
+          "notes": ""
+        },
+        {
+          "n": 14,
+          "stance": "학다리서기",
+          "technique": "오른 옆차기",
+          "direction": "좌측",
+          "kihap": false,
+          "notes": ""
+        },
+        {
+          "n": 15,
+          "stance": "오른 뒷굽이",
+          "technique": "오른 편손끝 젖혀 찌르기",
+          "direction": "좌측",
+          "kihap": false,
+          "notes": ""
+        },
+        {
+          "n": 16,
+          "stance": "오른 뒷굽이",
+          "technique": "오른 아래막기",
+          "direction": "좌측",
+          "kihap": false,
+          "notes": ""
+        },
+        {
+          "n": 17,
+          "stance": "주춤서기",
+          "technique": "왼 발꿈치 옆치기",
+          "direction": "뒤",
+          "kihap": false,
+          "notes": ""
+        },
+        {
+          "n": 18,
+          "stance": "왼 주춤서기",
+          "technique": "왼 손날 옆막기",
+          "direction": "뒤",
+          "kihap": false,
+          "notes": ""
+        },
+        {
+          "n": 19,
+          "stance": "왼 뒷굽이",
+          "technique": "왼 편손끝 젖혀 찌르기",
+          "direction": "뒤",
+          "kihap": false,
+          "notes": ""
+        },
+        {
+          "n": 20,
+          "stance": "모아서기",
+          "technique": "메주먹 표적 아래 치기",
+          "direction": "정면",
+          "kihap": false,
+          "notes": ""
+        },
+        {
+          "n": 21,
+          "stance": "왼 앞굽이",
+          "technique": "왼 손날 안치기",
+          "direction": "정면",
+          "kihap": false,
+          "notes": ""
+        },
+        {
+          "n": 22,
+          "stance": "오른 앞굽이",
+          "technique": "오른 손날 안치기",
+          "direction": "정면",
+          "kihap": false,
+          "notes": ""
+        },
+        {
+          "n": 23,
+          "stance": "왼 앞굽이",
+          "technique": "왼 손날 안치기",
+          "direction": "정면",
+          "kihap": false,
+          "notes": ""
+        },
+        {
+          "n": 24,
+          "stance": "오른 앞굽이",
+          "technique": "오른 손날 안치기",
+          "direction": "정면",
+          "kihap": false,
+          "notes": ""
+        }
+      ],
+      "total_movements": 24,
+      "summary_note": "이 영상은 품새 고려의 일부 동작을 시연하며, 표준 고려 품새의 총 30개 동작 중 24개 동작을 순서대로 보여줍니다. 일부 연결 동작이나 중간 단계는 상세 설명 없이 빠르게 진행되거나 생략되었습니다.",
+      "source_url": "https://www.youtube.com/watch?v=mGa60JDtWmg",
+      "extracted_at": "2026-05-08T19:25:53.880068Z"
+    }
+  },
+  "_updated_at": "2026-05-08T19:25:53.880640Z"
+}

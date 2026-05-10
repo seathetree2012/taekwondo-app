@@ -1,0 +1,15 @@
+# Secrets
+.playit_code
+.env
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Generated
+extract_results/
+
+# OS
+.DS_Store
+Thumbs.db

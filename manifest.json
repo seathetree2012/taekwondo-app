@@ -1,0 +1,19 @@
+{
+  "name": "태권도 자세 코치",
+  "short_name": "태권도 코치",
+  "description": "AI가 태권도 자세를 봐주는 앱",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fafafa",
+  "theme_color": "#d8453a",
+  "orientation": "portrait",
+  "lang": "ko",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
