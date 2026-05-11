@@ -1502,6 +1502,73 @@ if ("serviceWorker" in navigator) {
 }
 
 // ===== Storage =====
+// ===== IndexedDB (영상 Blob 영구 저장) =====
+const VideoDB = {
+  _dbPromise: null,
+  _open() {
+    if (this._dbPromise) return this._dbPromise;
+    this._dbPromise = new Promise((resolve, reject) => {
+      const req = indexedDB.open('tkd_media', 1);
+      req.onupgradeneeded = (e) => {
+        const db = e.target.result;
+        if (!db.objectStoreNames.contains('videos')) {
+          db.createObjectStore('videos', { keyPath: 'id' });
+        }
+      };
+      req.onsuccess = () => resolve(req.result);
+      req.onerror = () => reject(req.error);
+    });
+    return this._dbPromise;
+  },
+  async put(id, blob, mimeType) {
+    try {
+      const db = await this._open();
+      return await new Promise((resolve, reject) => {
+        const tx = db.transaction('videos', 'readwrite');
+        tx.objectStore('videos').put({ id, blob, mimeType, savedAt: Date.now() });
+        tx.oncomplete = () => resolve(true);
+        tx.onerror = () => reject(tx.error);
+        tx.onabort = () => reject(tx.error || new Error('QuotaExceeded'));
+      });
+    } catch (e) {
+      console.error('VideoDB put failed:', e);
+      return false;
+    }
+  },
+  async get(id) {
+    try {
+      const db = await this._open();
+      return await new Promise((resolve, reject) => {
+        const tx = db.transaction('videos', 'readonly');
+        const req = tx.objectStore('videos').get(id);
+        req.onsuccess = () => resolve(req.result || null);
+        req.onerror = () => reject(req.error);
+      });
+    } catch (e) { return null; }
+  },
+  async delete(id) {
+    try {
+      const db = await this._open();
+      return await new Promise((resolve) => {
+        const tx = db.transaction('videos', 'readwrite');
+        tx.objectStore('videos').delete(id);
+        tx.oncomplete = () => resolve(true);
+        tx.onerror = () => resolve(false);
+      });
+    } catch (e) { return false; }
+  },
+  async deleteMany(ids) {
+    for (const id of ids) { await this.delete(id); }
+  },
+  async usageMB() {
+    if (!navigator.storage || !navigator.storage.estimate) return null;
+    try {
+      const e = await navigator.storage.estimate();
+      return { usedMB: (e.usage / 1024 / 1024).toFixed(1), quotaMB: (e.quota / 1024 / 1024).toFixed(0) };
+    } catch { return null; }
+  },
+};
+
 const Store = {
   getConsent: () => { try { return JSON.parse(localStorage.getItem('tkd_consent') || 'null'); } catch { return null; } },
   setConsent: () => localStorage.setItem('tkd_consent', JSON.stringify({ agreedAt: new Date().toISOString() })),
@@ -1518,8 +1585,10 @@ const Store = {
   },
   getUserById: (id) => Store.getUsers().find(u => u.id === id),
   deleteUser: (id) => {
+    const mediaIds = Store.getHistory(id).map(h => h.mediaId).filter(Boolean);
     Store.setUsers(Store.getUsers().filter(u => u.id !== id));
     localStorage.removeItem('tkd_history_' + id);
+    VideoDB.deleteMany(mediaIds);
   },
 
   getCurrentUserId: () => localStorage.getItem('tkd_currentUser'),
@@ -1549,6 +1618,8 @@ const Store = {
   },
   getHistoryItem: (userId, itemId) => Store.getHistory(userId).find(h => h.id === itemId),
   deleteHistoryItem: (userId, itemId) => {
+    const item = Store.getHistoryItem(userId, itemId);
+    if (item && item.mediaId) VideoDB.delete(item.mediaId);
     const list = Store.getHistory(userId).filter(h => h.id !== itemId);
     localStorage.setItem('tkd_history_' + userId, JSON.stringify(list));
   },
@@ -2522,12 +2593,19 @@ function runAnalyze(params) {
       const userId = Store.getCurrentUserId();
       if (userId && fileSnap) {
         const thumb = await makeThumbnail(fileSnap, isVideoSnap);
+        let mediaId = null;
+        if (isVideoSnap) {
+          mediaId = 'm_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6);
+          const savedOk = await VideoDB.put(mediaId, fileSnap, fileSnap.type || 'video/mp4');
+          if (!savedOk) mediaId = null;
+        }
         const ok = Store.addHistoryItem(userId, {
           category,
           age,
           isVideo: isVideoSnap,
           thumbnail: thumb,
           feedback: text,
+          mediaId,
         });
         if (ok) document.getElementById('savedBadge').classList.remove('hidden');
       }
@@ -2717,20 +2795,20 @@ async function startCompare(earlier, later) {
   }
 }
 
-function openDetail(itemId) {
+async function openDetail(itemId) {
   const userId = Store.getCurrentUserId();
   const it = Store.getHistoryItem(userId, itemId);
   if (!it) { openDiary(); return; }
-  const thumb = it.thumbnail
-    ? `<div class="detail-thumb" style="background-image:url('${it.thumbnail}')"></div>`
-    : `<div class="detail-thumb">${it.isVideo ? '🎬' : '📷'}</div>`;
   const formatted = (it.feedback || '')
     .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
     .replace(/^\* /gm, '• ');
+  const thumbFallback = it.thumbnail
+    ? `<div class="detail-thumb" style="background-image:url('${it.thumbnail}')"></div>`
+    : `<div class="detail-thumb">${it.isVideo ? '🎬' : '📷'}</div>`;
   document.getElementById('detailContent').innerHTML = `
     <div class="step-title">${escapeHtml(it.category)}</div>
     <div class="subtitle">${formatDate(it.date)}</div>
-    ${thumb}
+    <div id="detailMediaSlot">${thumbFallback}</div>
     <div class="card">
       <div class="feedback">${formatted}</div>
     </div>
@@ -2741,6 +2819,18 @@ function openDetail(itemId) {
     openDiary();
   };
   showScreen('detail');
+
+  // 영상이 IndexedDB에 저장돼있으면 video 태그로 교체
+  if (it.mediaId) {
+    const rec = await VideoDB.get(it.mediaId);
+    if (rec && rec.blob) {
+      const url = URL.createObjectURL(rec.blob);
+      const slot = document.getElementById('detailMediaSlot');
+      if (slot) {
+        slot.innerHTML = `<video controls playsinline style="width:100%;max-height:60vh;border-radius:12px;background:#000;" src="${url}"></video>`;
+      }
+    }
+  }
 }
 
 // ===== 유틸 =====

@@ -1,4 +1,4 @@
-const CACHE = "tkd-v19";
+const CACHE = "tkd-v20";
 const SHELL = ["/", "/index.html", "/manifest.json", "/icon.svg"];
 
 self.addEventListener("install", (e) => {
