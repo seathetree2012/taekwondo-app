@@ -591,11 +591,13 @@ class Handler(BaseHTTPRequestHandler):
             ))
         except urllib.error.HTTPError as e:
             err_body = e.read().decode(errors="replace")
+            print(f"[Gemini ERROR {e.code}] {err_body}", flush=True)
             msg = f"Gemini 에러 {e.code}"
             if "exceeds" in err_body.lower() or "too large" in err_body.lower():
                 msg = "파일이 너무 커요"
             self._send(500, json.dumps({"error": msg}, ensure_ascii=False))
         except Exception as e:
+            print(f"[analyze Exception] {e}", flush=True)
             self._send(500, json.dumps({"error": f"문제 발생: {e}"}, ensure_ascii=False))
 
     def _handle_extract(self):
@@ -646,8 +648,11 @@ class Handler(BaseHTTPRequestHandler):
                 return
             self._send(200, json.dumps(parsed, ensure_ascii=False))
         except urllib.error.HTTPError as e:
+            err_body = e.read().decode(errors="replace")
+            print(f"[Gemini ERROR {e.code} extract] {err_body}", flush=True)
             self._send(500, json.dumps({"error": f"Gemini 에러 {e.code}"}, ensure_ascii=False))
         except Exception as e:
+            print(f"[extract Exception] {e}", flush=True)
             self._send(500, json.dumps({"error": f"문제 발생: {e}"}, ensure_ascii=False))
 
     def _handle_compare(self):
@@ -675,8 +680,11 @@ class Handler(BaseHTTPRequestHandler):
             text = call_gemini([{"text": prompt}], 30)
             self._send(200, json.dumps({"summary": text}, ensure_ascii=False))
         except urllib.error.HTTPError as e:
+            err_body = e.read().decode(errors="replace")
+            print(f"[Gemini ERROR {e.code} compare] {err_body}", flush=True)
             self._send(500, json.dumps({"error": f"Gemini 에러 {e.code}"}, ensure_ascii=False))
         except Exception as e:
+            print(f"[compare Exception] {e}", flush=True)
             self._send(500, json.dumps({"error": f"문제 발생: {e}"}, ensure_ascii=False))
 
     def log_message(self, fmt, *args):
