@@ -119,7 +119,7 @@ VIDEO_MOMENTS_INSTRUCTIONS = (
 )
 
 
-def build_prompt(is_video, category, age, mode="pro", reference_sequence=None):
+def build_prompt(is_video, category, age, mode="pro", reference_sequence=None, subtype=None):
     medium = "영상" if is_video else "사진"
     if mode == "easy":
         profile = AGE_PROFILE.get(age, AGE_PROFILE["초등중등"])
@@ -127,8 +127,12 @@ def build_prompt(is_video, category, age, mode="pro", reference_sequence=None):
         profile = PROFESSIONAL_PROFILE
     focus = CATEGORY_FOCUS.get(category, CATEGORY_FOCUS["발차기"])
 
+    header = f"이 {medium}은 태권도 {category}이에요."
+    if subtype:
+        header = f"이 {medium}은 태권도 {category} — **{subtype}**이에요. (사용자가 직접 종류를 지정)"
+
     parts = [
-        f"이 {medium}은 태권도 {category}이에요.",
+        header,
         "",
         "[기준 출처] 모든 평가는 WT(World Taekwondo, 세계태권도연맹) 국제 기준을 따라요.",
         "",
@@ -145,14 +149,24 @@ def build_prompt(is_video, category, age, mode="pro", reference_sequence=None):
     if category == "발차기":
         parts.append(KICK_REFERENCE)
         parts.append("")
-        parts.append("발차기 평가 시: 영상 속 어떤 발차기인지 먼저 식별하고(앞·옆·돌려·뒤·내려), 그 발차기의 핵심 포인트(무릎·디딤발·타격 부위·회수·균형) 위주로 봄.")
+        if subtype:
+            parts.append(f"**중요**: 이 영상은 사용자가 '{subtype}'로 지정한 영상이에요. 다른 발차기(앞·옆·돌려·뒤·내려 중 다른 것)로 추측하거나 거론하지 말고, 무조건 '{subtype}'의 핵심 포인트(무릎·디딤발·타격 부위·회수·균형) 기준으로 평가하세요.")
+            parts.append(f"feedback 도입부에 '{subtype}' 임을 명시.")
+        else:
+            parts.append("발차기 평가 시: 영상 속 어떤 발차기인지 먼저 식별하고(앞·옆·돌려·뒤·내려), 그 발차기의 핵심 포인트(무릎·디딤발·타격 부위·회수·균형) 위주로 봄.")
         parts.append("")
     elif category == "품새":
         parts.append(POOMSAE_REFERENCE)
         parts.append("")
-        parts.append("품새 평가 시:")
-        parts.append("1. 어떤 품새인지 먼저 식별. 알아낸 품새 이름을 feedback 도입부에 명시.")
-        parts.append("2. **동작 순서 검증** — 영상 속 실제 동작을 단계별로 표준과 대조.")
+        if subtype:
+            parts.append(f"**중요**: 이 영상은 사용자가 '{subtype}'으로 지정한 영상이에요. 어떤 품새인지 추측하거나 다른 장(예: 1장/2장 등)으로 판단하지 마세요. 무조건 '{subtype}'의 표준 동작과 대조해서 평가하세요.")
+            parts.append("품새 평가 시:")
+            parts.append(f"1. feedback 도입부에 '{subtype}' 임을 명시.")
+            parts.append(f"2. **동작 순서 검증** — 영상 속 실제 동작을 '{subtype}'의 단계별 표준과 대조.")
+        else:
+            parts.append("품새 평가 시:")
+            parts.append("1. 어떤 품새인지 먼저 식별. 알아낸 품새 이름을 feedback 도입부에 명시.")
+            parts.append("2. **동작 순서 검증** — 영상 속 실제 동작을 단계별로 표준과 대조.")
         if reference_sequence:
             parts.append("   - 아래 [등록된 표준 시퀀스]와 직접 비교 (사용자가 등록한 우리 도장 기준).")
         else:
@@ -162,8 +176,12 @@ def build_prompt(is_video, category, age, mode="pro", reference_sequence=None):
         parts.append("3. 자세·흐름·기합 타이밍·시선 처리도 같이 평가 (순서만 보지 말기).")
         parts.append("")
         if reference_sequence:
-            parts.append("[등록된 표준 시퀀스 — 우리 도장 기준 (1개 이상 품새 가능)]")
-            parts.append("아래 목록 중 영상의 품새와 일치하는 항목을 골라서 그 시퀀스를 표준으로 비교하세요.")
+            if subtype:
+                parts.append(f"[표준 시퀀스 — '{subtype}']")
+                parts.append(f"이 영상은 '{subtype}'이므로 아래 시퀀스만 표준으로 사용하세요.")
+            else:
+                parts.append("[등록된 표준 시퀀스 — 우리 도장 기준 (1개 이상 품새 가능)]")
+                parts.append("아래 목록 중 영상의 품새와 일치하는 항목을 골라서 그 시퀀스를 표준으로 비교하세요.")
             try:
                 parts.append(json.dumps(reference_sequence, ensure_ascii=False, indent=1))
             except Exception:
@@ -506,6 +524,7 @@ class Handler(BaseHTTPRequestHandler):
         mode = fields.get("mode", "pro")
         if mode not in ("pro", "easy"):
             mode = "pro"
+        subtype = (fields.get("subtype") or "").strip() or None
         reference_sequence_raw = fields.get("reference_sequence", "")
         client_refs = []
         if reference_sequence_raw:
@@ -538,12 +557,17 @@ class Handler(BaseHTTPRequestHandler):
                         "source": "default",
                     })
             if merged:
-                reference_sequence = merged
+                # 사용자가 장을 명시했으면 그 장 표준 시퀀스만 남김 (Gemini 혼동 방지)
+                if subtype:
+                    filtered = [m for m in merged if m.get("poomsae") == subtype]
+                    reference_sequence = filtered if filtered else None
+                else:
+                    reference_sequence = merged
 
         try:
             if youtube_url and not file_part:
                 is_video = True
-                prompt = build_prompt(True, category, age, mode, reference_sequence)
+                prompt = build_prompt(True, category, age, mode, reference_sequence, subtype)
                 parts = [
                     {"text": prompt},
                     {"file_data": {"file_uri": youtube_url}},
@@ -552,7 +576,7 @@ class Handler(BaseHTTPRequestHandler):
             else:
                 mime = file_part["mime"]
                 is_video = mime.startswith("video/")
-                prompt = build_prompt(is_video, category, age, mode, reference_sequence)
+                prompt = build_prompt(is_video, category, age, mode, reference_sequence, subtype)
                 size = len(file_part["data"])
 
                 if size <= INLINE_LIMIT and not is_video:

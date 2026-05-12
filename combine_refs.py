@@ -29,7 +29,7 @@ YT_SOURCES = {
     "태극7장": "https://www.youtube.com/watch?v=RI1bX0gUJpo",
     "태극8장": "https://www.youtube.com/watch?v=Gr_Je2ZkgkI",
     "고려": "https://www.youtube.com/watch?v=mGa60JDtWmg",
-    "금강": "https://www.youtube.com/watch?v=CRGVSOmaQaY",
+    "금강": "https://www.youtube.com/watch?v=f4tKh2kNb-U",
 }
 
 merged_refs = {}

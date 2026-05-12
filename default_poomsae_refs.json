@@ -1,6 +1,7 @@
 {
   "_note": "기본 표준 시퀀스 — Kukkiwon/WT 공식 영상에서 dev 도구로 추출 (2026-05-09)",
   "_version": 1,
+  "_updated_at": "2026-05-12T13:28:10.435000Z",
   "refs": {
     "태극1장": {
       "sequence": [
@@ -161,7 +162,7 @@
       "total_movements": 16,
       "summary_note": "태극1장 품새는 기본 준비 자세를 시작으로 총 16개의 동작으로 구성되어 있습니다. 마지막 몸통 지르기에서 기합이 들어갑니다.",
       "source_url": "https://www.youtube.com/watch?v=WhkjRruCBTo",
-      "extracted_at": "2026-05-08T19:25:53.877736Z"
+      "extracted_at": "2026-05-12T13:28:10.431321Z"
     },
     "태극2장": {
       "sequence": [
@@ -322,7 +323,7 @@
       "total_movements": 17,
       "summary_note": "태극 2장의 표준 시연으로, 총 17개의 동작으로 구성되어 있습니다. 각 동작은 앞굽이 서기와 다양한 막기, 지르기, 차기 기술을 연속적으로 보여주며, 마지막 동작에 기합이 포함됩니다.",
       "source_url": "https://www.youtube.com/watch?v=tGlrUplKHh8",
-      "extracted_at": "2026-05-08T19:25:53.878062Z"
+      "extracted_at": "2026-05-12T13:28:10.431630Z"
     },
     "태극3장": {
       "sequence": [
@@ -555,7 +556,7 @@
       "total_movements": 25,
       "summary_note": "태극3장의 표준 시연으로, 총 25개의 동작을 추출했습니다. 19번째 동작에서 기합이 있습니다.",
       "source_url": "https://www.youtube.com/watch?v=ksSqKt0UkWo",
-      "extracted_at": "2026-05-08T19:25:53.878369Z"
+      "extracted_at": "2026-05-12T13:28:10.431886Z"
     },
     "태극4장": {
       "sequence": [
@@ -779,7 +780,7 @@
       "total_movements": 24,
       "summary_note": "태극4장 품새의 모든 동작을 영상 시연에 따라 정확히 추출하였습니다.",
       "source_url": "https://www.youtube.com/watch?v=Lt917gacJho",
-      "extracted_at": "2026-05-08T19:25:53.878678Z"
+      "extracted_at": "2026-05-12T13:28:10.432110Z"
     },
     "태극5장": {
       "sequence": [
@@ -1102,7 +1103,7 @@
       "total_movements": 35,
       "summary_note": "태권도 품새 '태극5장'의 표준 시연 영상에서 35개 동작을 추출하였습니다. 각 동작은 스탠스, 기술, 방향, 기합 여부, 시작 시간 및 특이사항을 포함합니다.",
       "source_url": "https://www.youtube.com/watch?v=VdqNEAHWCBM",
-      "extracted_at": "2026-05-08T19:25:53.879042Z"
+      "extracted_at": "2026-05-12T13:28:10.432566Z"
     },
     "태극6장": {
       "sequence": [
@@ -1263,7 +1264,7 @@
       "total_movements": 17,
       "summary_note": "태극6장 품새의 표준 시연 영상에서 17개의 동작을 추출했습니다. 일부 동작은 일반적인 태극6장 품새의 해석과 미세한 차이가 있을 수 있습니다. 예를 들어, 6번 동작의 경우 돌려차기 후 몸통지르기 대신 몸통 안막기가 시연되었습니다. 또한, 7번과 8번 동작은 몸통 안막기, 몸통 바깥막기로 시연되었으며 9번 동작에는 앞차기가 포함되었습니다.",
       "source_url": "https://www.youtube.com/watch?v=jcBwWo4wN7c",
-      "extracted_at": "2026-05-08T19:25:53.879309Z"
+      "extracted_at": "2026-05-12T13:28:10.432787Z"
     },
     "태극7장": {
       "sequence": [
@@ -1586,7 +1587,7 @@
       "total_movements": 35,
       "summary_note": "태극 7장 품새의 모든 동작을 단계별로 추출하였습니다.",
       "source_url": "https://www.youtube.com/watch?v=RI1bX0gUJpo",
-      "extracted_at": "2026-05-08T19:25:53.879581Z"
+      "extracted_at": "2026-05-12T13:28:10.433169Z"
     },
     "태극8장": {
       "sequence": [
@@ -1826,7 +1827,7 @@
       "total_movements": 29,
       "summary_note": "영상은 태극8장의 표준 시연이며, 총 29개의 동작을 포함하고 있습니다. 일부 복합 동작(예: 이단옆차기)은 여러 개의 개별 동작으로 세분화되어 추출되었습니다.",
       "source_url": "https://www.youtube.com/watch?v=Gr_Je2ZkgkI",
-      "extracted_at": "2026-05-08T19:25:53.879825Z"
+      "extracted_at": "2026-05-12T13:28:10.433529Z"
     },
     "고려": {
       "sequence": [
@@ -2026,8 +2027,267 @@
       "total_movements": 24,
       "summary_note": "이 영상은 품새 고려의 일부 동작을 시연하며, 표준 고려 품새의 총 30개 동작 중 24개 동작을 순서대로 보여줍니다. 일부 연결 동작이나 중간 단계는 상세 설명 없이 빠르게 진행되거나 생략되었습니다.",
       "source_url": "https://www.youtube.com/watch?v=mGa60JDtWmg",
-      "extracted_at": "2026-05-08T19:25:53.880068Z"
+      "extracted_at": "2026-05-12T13:28:10.433752Z"
+    },
+    "금강": {
+      "sequence": [
+        {
+          "n": 1,
+          "stance": "왼 앞굽이",
+          "technique": "안팔목 몸통 해쳐 막기",
+          "direction": "좌측",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 1.28
+        },
+        {
+          "n": 2,
+          "stance": "오른 앞굽이",
+          "technique": "오른 바탕손 턱치기",
+          "direction": "정면",
+          "kihap": false,
+          "notes": "바탕손이 장골능에서 시작하여 턱 높이에 손끝은 45도를 비튼다.",
+          "timestamp_sec": 1.31
+        },
+        {
+          "n": 3,
+          "stance": "왼 앞굽이",
+          "technique": "왼 바탕손 턱치기",
+          "direction": "정면",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 1.48
+        },
+        {
+          "n": 4,
+          "stance": "오른 앞굽이",
+          "technique": "오른 바탕손 턱치기",
+          "direction": "정면",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 1.53
+        },
+        {
+          "n": 5,
+          "stance": "오른 뒷굽이",
+          "technique": "한 손날 몸통 막기",
+          "direction": "좌측",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 2.01
+        },
+        {
+          "n": 6,
+          "stance": "왼 뒷굽이",
+          "technique": "한 손날 몸통 막기",
+          "direction": "뒤",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 2.07
+        },
+        {
+          "n": 7,
+          "stance": "오른 뒷굽이",
+          "technique": "한 손날 몸통 막기",
+          "direction": "우측",
+          "kihap": false,
+          "notes": "막는 손이 몸체 중심선에 있어야 하며, 막는 손과 딛는 발은 동시에 이루어진다.",
+          "timestamp_sec": 2.11
+        },
+        {
+          "n": 8,
+          "stance": "오른 학다리서기",
+          "technique": "금강 막기",
+          "direction": "정면",
+          "kihap": false,
+          "notes": "지지한 발 반대 발을 지면에서 들어 발날 등이 무릎 안쪽에 붙도록 서고, 금강 막기는 천천히 전신의 힘을 주며 무릎이 벌어지지 않도록 한다.",
+          "timestamp_sec": 2.24
+        },
+        {
+          "n": 9,
+          "stance": "왼 주춤서기",
+          "technique": "큰 돌쩌귀",
+          "direction": "좌측",
+          "kihap": false,
+          "notes": "중심 높이를 변화시키지 않고 한 발 너비로 신속히 돌아 주춤서기 상태에서 큰 돌쩌귀를 동시에 한다.",
+          "timestamp_sec": 2.5
+        },
+        {
+          "n": 10,
+          "stance": "오른 주춤서기",
+          "technique": "큰 돌쩌귀",
+          "direction": "뒤",
+          "kihap": false,
+          "notes": "중심 높이를 변화시키지 않고 한 발 너비로 신속히 돌아 주춤서기 상태에서 큰 돌쩌귀를 동시에 한다.",
+          "timestamp_sec": 2.55
+        },
+        {
+          "n": 11,
+          "stance": "왼 주춤서기",
+          "technique": "산틀막기",
+          "direction": "좌측",
+          "kihap": true,
+          "notes": "양 팔목이 인중에 위치하며 시선은 진행 방향을 본다.",
+          "timestamp_sec": 3.12
+        },
+        {
+          "n": 12,
+          "stance": "주춤서기",
+          "technique": "안팔목 몸통 해쳐 막기",
+          "direction": "우측",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 3.25
+        },
+        {
+          "n": 13,
+          "stance": "나란히서기",
+          "technique": "아래 해쳐 막기",
+          "direction": "정면",
+          "kihap": false,
+          "notes": "양 팔이 가슴 앞에서 교차하게 하여 해쳐 막는다.",
+          "timestamp_sec": 3.32
+        },
+        {
+          "n": 14,
+          "stance": "오른 주춤서기",
+          "technique": "산틀막기",
+          "direction": "뒤",
+          "kihap": true,
+          "notes": "",
+          "timestamp_sec": 3.48
+        },
+        {
+          "n": 15,
+          "stance": "왼 학다리서기",
+          "technique": "금강 막기",
+          "direction": "좌측",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 3.58
+        },
+        {
+          "n": 16,
+          "stance": "오른 주춤서기",
+          "technique": "큰 돌쩌귀",
+          "direction": "우측",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 4.09
+        },
+        {
+          "n": 17,
+          "stance": "왼 주춤서기",
+          "technique": "큰 돌쩌귀",
+          "direction": "정면",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 4.14
+        },
+        {
+          "n": 18,
+          "stance": "왼 학다리서기",
+          "technique": "금강 막기",
+          "direction": "좌측",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 4.22
+        },
+        {
+          "n": 19,
+          "stance": "오른 주춤서기",
+          "technique": "큰 돌쩌귀",
+          "direction": "우측",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 4.31
+        },
+        {
+          "n": 20,
+          "stance": "왼 주춤서기",
+          "technique": "큰 돌쩌귀",
+          "direction": "뒤",
+          "kihap": false,
+          "notes": "오른발 왼발을 이어 옮겨 디디며",
+          "timestamp_sec": 4.38
+        },
+        {
+          "n": 21,
+          "stance": "오른 주춤서기",
+          "technique": "산틀막기",
+          "direction": "우측",
+          "kihap": true,
+          "notes": "",
+          "timestamp_sec": 4.49
+        },
+        {
+          "n": 22,
+          "stance": "주춤서기",
+          "technique": "안팔목 몸통 해쳐 막기",
+          "direction": "좌측",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 4.54
+        },
+        {
+          "n": 23,
+          "stance": "나란히서기",
+          "technique": "아래 해쳐 막기",
+          "direction": "정면",
+          "kihap": false,
+          "notes": "양 팔이 가슴 앞에서 교차하게 하여 해쳐 막는다.",
+          "timestamp_sec": 5.01
+        },
+        {
+          "n": 24,
+          "stance": "왼 주춤서기",
+          "technique": "산틀막기",
+          "direction": "뒤",
+          "kihap": true,
+          "notes": "",
+          "timestamp_sec": 5.14
+        },
+        {
+          "n": 25,
+          "stance": "오른 학다리서기",
+          "technique": "금강 막기",
+          "direction": "좌측",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 5.31
+        },
+        {
+          "n": 26,
+          "stance": "왼 주춤서기",
+          "technique": "큰 돌쩌귀",
+          "direction": "좌측",
+          "kihap": false,
+          "notes": "",
+          "timestamp_sec": 5.46
+        },
+        {
+          "n": 27,
+          "stance": "오른 주춤서기",
+          "technique": "큰 돌쩌귀",
+          "direction": "뒤",
+          "kihap": false,
+          "notes": "오른발 왼발을 이어 옮겨 디디며",
+          "timestamp_sec": 5.51
+        },
+        {
+          "n": 28,
+          "stance": "기본준비서기",
+          "technique": "",
+          "direction": "정면",
+          "kihap": false,
+          "notes": "바로 (Poomsae ends)",
+          "timestamp_sec": 6.0
+        }
+      ],
+      "total_movements": 28,
+      "summary_note": "태권도 품새 '금강'의 표준 시연 영상에서 모든 동작을 추출했습니다. 총 28개의 동작으로 구성되어 있으며, 기합은 4개의 동작에서 포함됩니다.",
+      "source_url": "https://www.youtube.com/watch?v=f4tKh2kNb-U",
+      "extracted_at": "2026-05-12T13:28:10.433969Z"
     }
-  },
-  "_updated_at": "2026-05-08T19:25:53.880640Z"
+  }
 }

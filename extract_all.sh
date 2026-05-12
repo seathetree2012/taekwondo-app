@@ -10,7 +10,7 @@ P=(
   "태극7장|RI1bX0gUJpo"
   "태극8장|Gr_Je2ZkgkI"
   "고려|mGa60JDtWmg"
-  "금강|CRGVSOmaQaY"
+  "금강|f4tKh2kNb-U"
 )
 for entry in "${P[@]}"; do
   name="${entry%|*}"

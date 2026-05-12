@@ -243,6 +243,30 @@
   .age-card .age-name { font-size: 16px; font-weight: 700; }
   .age-card .age-range { font-size: 13px; color: var(--muted); }
 
+  /* 종류 선택 (품새/발차기) */
+  .subtype-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  .subtype-card {
+    background: var(--card);
+    border: 2px solid var(--border);
+    border-radius: 14px;
+    padding: 16px 12px;
+    cursor: pointer;
+    transition: all .15s;
+    text-align: center;
+  }
+  .subtype-card:hover {
+    border-color: var(--primary);
+    transform: translateY(-1px);
+  }
+  .subtype-card .st-icon { font-size: 28px; margin-bottom: 6px; }
+  .subtype-card .st-name { font-size: 15px; font-weight: 700; }
+  .subtype-card .st-sub { font-size: 11px; color: var(--muted); margin-top: 3px; }
+
   /* 업로드 */
   .card {
     background: var(--card);
@@ -1217,6 +1241,16 @@
     </div>
   </div>
 
+  <!-- ===== Screen 2.5: 종류 선택 (품새/발차기) ===== -->
+  <div id="screen-subtype" class="screen">
+    <div class="top">
+      <button class="back" onclick="backFromSubtype()">← 뒤로</button>
+    </div>
+    <div class="step-title" id="subtypeTitle">어떤 품새인가요?</div>
+    <div class="subtitle" id="subtypeSubtitle">선택한 종류로 정확히 분석할게요</div>
+    <div class="subtype-grid" id="subtypeGrid"></div>
+  </div>
+
   <!-- ===== Screen 3: 업로드 ===== -->
   <div id="screen3" class="screen">
     <div class="top">
@@ -1634,6 +1668,7 @@ const SCREEN_IDS = {
   pin: 'screen-pin',
   main: 'screen1',
   age: 'screen2',
+  subtype: 'screen-subtype',
   upload: 'screen3',
   result: 'screen4',
   diary: 'screen-diary',
@@ -1999,6 +2034,7 @@ function goTo(n) {
 
 function goToMain() {
   state.category = null;
+  state.subtype = null;
   state.age = null;
   resetUpload();
   updateHeader();
@@ -2188,10 +2224,52 @@ document.getElementById('menuDeleteAccount').addEventListener('click', () => {
 });
 
 // ===== Wizard =====
-const state = { category: null, age: null };
+const state = { category: null, subtype: null, age: null };
+
+// 종류 선택 보기 (품새는 POOMSAE_LIST 재활용, 발차기는 5종)
+const KICK_LIST = [
+  { key: '앞차기', name: '앞차기', sub: '기본' },
+  { key: '돌려차기', name: '돌려차기', sub: '기본' },
+  { key: '옆차기', name: '옆차기', sub: '기본' },
+  { key: '뒤차기', name: '뒤차기', sub: '회전' },
+  { key: '내려차기', name: '내려차기', sub: '내려찍기' },
+  { key: '후려차기', name: '후려차기', sub: '응용' },
+  { key: '뒤후려차기', name: '뒤후려차기', sub: '회전 응용' },
+  { key: '반달차기', name: '반달차기', sub: '응용' },
+  { key: '나래차기', name: '나래차기', sub: '연속' },
+  { key: '두발당성차기', name: '두발당성차기', sub: '점프' },
+];
+function getSubtypeList(category) {
+  if (category === '품새') return POOMSAE_LIST.map((p) => ({ key: p.key, name: p.name, sub: p.level }));
+  if (category === '발차기') return KICK_LIST;
+  return [];
+}
+function renderSubtypeGrid(category) {
+  const grid = document.getElementById('subtypeGrid');
+  const title = document.getElementById('subtypeTitle');
+  const sub = document.getElementById('subtypeSubtitle');
+  if (!grid) return;
+  if (category === '품새') {
+    title.textContent = '어떤 품새인가요?';
+    sub.textContent = '선택한 장으로 정확히 분석할게요';
+  } else if (category === '발차기') {
+    title.textContent = '어떤 발차기인가요?';
+    sub.textContent = '선택한 발차기로 정확히 분석할게요';
+  }
+  const items = getSubtypeList(category);
+  const icon = category === '품새' ? '🥋' : '🦵';
+  grid.innerHTML = items.map((it) => `
+    <div class="subtype-card" data-subtype="${it.key}" data-subtype-name="${it.name}">
+      <div class="st-icon">${icon}</div>
+      <div class="st-name">${it.name}</div>
+      <div class="st-sub">${it.sub || ''}</div>
+    </div>
+  `).join('');
+}
 
 function restart() {
   state.category = null;
+  state.subtype = null;
   state.age = null;
   resetUpload();
   showScreen('main');
@@ -2342,13 +2420,14 @@ function renderMoments(file, moments, isVideo, ytUrl) {
   legend.classList.remove('hidden');
 }
 
-function setSummaryPills(category, ageLabel) {
+function setSummaryPills(category, ageLabel, subtypeName) {
   const cat1 = document.getElementById('pillCategory');
   const cat2 = document.getElementById('pillCategory2');
   const age1 = document.getElementById('pillAge');
   const age2 = document.getElementById('pillAge2');
-  if (cat1) cat1.textContent = category || '';
-  if (cat2) cat2.textContent = category || '';
+  const catText = subtypeName ? `${category} · ${subtypeName}` : (category || '');
+  if (cat1) cat1.textContent = catText;
+  if (cat2) cat2.textContent = catText;
   if (ageLabel) {
     if (age1) { age1.textContent = ageLabel; age1.style.display = ''; }
     if (age2) { age2.textContent = ageLabel; age2.style.display = ''; }
@@ -2358,28 +2437,58 @@ function setSummaryPills(category, ageLabel) {
   }
 }
 
+function hasSubtypeFlow(category) {
+  return category === '품새' || category === '발차기';
+}
+
 function backFromUpload() {
   if (Settings.get().feedback === 'easy') showScreen('age');
+  else if (hasSubtypeFlow(state.category)) showScreen('subtype');
   else showScreen('main');
+}
+
+function backFromSubtype() {
+  showScreen('main');
 }
 
 document.querySelectorAll('.tri-card').forEach((card) => {
   card.addEventListener('click', () => {
     state.category = card.dataset.cat;
-    if (Settings.get().feedback === 'easy') {
+    state.subtype = null;
+    if (hasSubtypeFlow(state.category)) {
+      renderSubtypeGrid(state.category);
+      showScreen('subtype');
+    } else if (Settings.get().feedback === 'easy') {
       showScreen('age');
     } else {
       state.age = 'default';
-      setSummaryPills(state.category, '');
+      setSummaryPills(state.category, '', null);
       showScreen('upload');
     }
   });
 });
 
+document.getElementById('subtypeGrid').addEventListener('click', (e) => {
+  const card = e.target.closest('.subtype-card');
+  if (!card) return;
+  state.subtype = card.dataset.subtype;
+  const subName = card.dataset.subtypeName;
+  if (Settings.get().feedback === 'easy') {
+    showScreen('age');
+  } else {
+    state.age = 'default';
+    setSummaryPills(state.category, '', subName);
+    showScreen('upload');
+  }
+});
+
 document.querySelectorAll('.age-card').forEach((card) => {
   card.addEventListener('click', () => {
     state.age = card.dataset.age;
-    setSummaryPills(state.category, card.querySelector('.age-name').textContent);
+    const subName = state.subtype
+      ? (getSubtypeList(state.category).find((it) => it.key === state.subtype)?.name || state.subtype)
+      : null;
+    setSummaryPills(state.category, card.querySelector('.age-name').textContent, subName);
     showScreen('upload');
   });
 });
@@ -2522,7 +2631,7 @@ function showAnalyzeError(msg) {
 }
 
 function runAnalyze(params) {
-  const { fileSnap, ytUrlSnap, isVideoSnap, category, age, mode } = params;
+  const { fileSnap, ytUrlSnap, isVideoSnap, category, subtype, age, mode } = params;
   _lastAnalyzeParams = params;
 
   showScreen('result');
@@ -2540,16 +2649,20 @@ function runAnalyze(params) {
   formData.append('category', category);
   formData.append('age', age);
   formData.append('mode', mode);
+  if (subtype) formData.append('subtype', subtype);
 
-  // 품새이고 등록된 기준이 있으면 함께 전송 (등록된 품새 자동 매칭)
+  // 품새: 사용자가 고른 장의 등록 기준만 보냄 (없으면 표준 사용)
   if (category === '품새') {
     const refs = PoomsaeRefs.getAll();
-    const matched = Object.keys(refs).find((name) => true); // 일단 첫 등록 기준 X — 영상에서 어떤 품새인지 모르니 모두 보냄
-    // 등록된 모든 품새 시퀀스를 같이 보냄. Gemini가 영상 보고 매칭.
-    const refList = Object.entries(refs).map(([name, data]) => ({
-      poomsae: name,
-      sequence: data.sequence || [],
-    }));
+    let refList = [];
+    if (subtype && refs[subtype]) {
+      refList = [{ poomsae: subtype, sequence: refs[subtype].sequence || [] }];
+    } else if (!subtype) {
+      refList = Object.entries(refs).map(([name, data]) => ({
+        poomsae: name,
+        sequence: data.sequence || [],
+      }));
+    }
     if (refList.length > 0) {
       formData.append('reference_sequence', JSON.stringify(refList));
     }
@@ -2601,6 +2714,7 @@ function runAnalyze(params) {
         }
         const ok = Store.addHistoryItem(userId, {
           category,
+          subtype: subtype || null,
           age,
           isVideo: isVideoSnap,
           thumbnail: thumb,
@@ -2632,6 +2746,7 @@ analyzeBtn.addEventListener('click', () => {
     ytUrlSnap: useYt ? ytUrl : '',
     isVideoSnap: useYt ? true : mediaIsVideo,
     category: state.category,
+    subtype: state.subtype,
     age: state.age,
     mode: Settings.get().feedback || 'pro',
   });
