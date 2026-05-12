@@ -2795,7 +2795,9 @@ async function startCompare(earlier, later) {
   }
 }
 
+let _detailBlobUrl = null;
 async function openDetail(itemId) {
+  if (_detailBlobUrl) { try { URL.revokeObjectURL(_detailBlobUrl); } catch(_) {} _detailBlobUrl = null; }
   const userId = Store.getCurrentUserId();
   const it = Store.getHistoryItem(userId, itemId);
   if (!it) { openDiary(); return; }
@@ -2825,6 +2827,7 @@ async function openDetail(itemId) {
     const rec = await VideoDB.get(it.mediaId);
     if (rec && rec.blob) {
       const url = URL.createObjectURL(rec.blob);
+      _detailBlobUrl = url;
       const slot = document.getElementById('detailMediaSlot');
       if (slot) {
         slot.innerHTML = `<video controls playsinline style="width:100%;max-height:60vh;border-radius:12px;background:#000;" src="${url}"></video>`;
